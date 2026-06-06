@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eduqas Component 1 — Exam Technique</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:#f5f4f0;min-height:100vh;}
+/* HEADER */
+.header{background:linear-gradient(135deg,#1e1b4b 0%,#16213e 55%,#0f3460 100%);color:white;padding:36px 32px 30px;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.header::after{content:'';position:absolute;bottom:-40px;left:40%;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.03);}
+.header-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#93c5fd;margin-bottom:6px;}
+.header h1{font-family:'Playfair Display',serif;font-size:30px;margin-bottom:4px;}
+.header h2{font-size:17px;font-weight:300;color:#bfdbfe;}
+.header-meta{display:flex;gap:16px;margin-top:18px;flex-wrap:wrap;}
+.header-badge{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:12px;color:#e0e7ff;}
+/* NAV */
+.nav-bar{background:white;border-bottom:3px solid #e5e7eb;position:sticky;top:0;z-index:100;overflow-x:auto;}
+.nav-inner{display:flex;max-width:1100px;margin:0 auto;}
+.nav-btn{padding:14px 18px;font-size:13px;font-weight:600;color:#6b7280;border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px;font-family:'Source Sans 3',sans-serif;transition:all 0.2s;}
+.nav-btn:hover{color:#1e1b4b;}
+.nav-btn.active{color:#1e1b4b;border-bottom-color:#1e1b4b;}
+/* PAGES */
+.page{display:none;max-width:1100px;margin:0 auto;padding:28px 16px 60px;}
+.page.active{display:block;}
+/* CARDS */
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:4px;}
+.hub-card{background:white;border-radius:12px;padding:20px;border-top:4px solid;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer;transition:all 0.2s;}
+.hub-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+.hub-card .card-icon{font-size:28px;margin-bottom:10px;}
+.hub-card .card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#1e1b4b;margin-bottom:4px;}
+.hub-card .card-sub{font-size:12px;color:#6b7280;line-height:1.5;margin-bottom:10px;}
+.hub-card .card-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.hub-card .tag{background:#f3f4f6;color:#374151;font-size:11px;padding:3px 8px;border-radius:10px;}
+/* SECTION TITLE */
+.section-title{font-family:'Playfair Display',serif;font-size:22px;color:#1e1b4b;margin-bottom:8px;}
+.section-sub{font-size:14px;color:#6b7280;margin-bottom:20px;line-height:1.6;}
+/* ALERT BOXES */
+.alert{border-radius:10px;padding:14px 18px;margin-bottom:16px;font-size:13px;line-height:1.7;}
+.alert-green{background:#dcfce7;border:1px solid #86efac;color:#166534;}
+.alert-red{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;}
+.alert-amber{background:#fef3c7;border:1px solid #fcd34d;color:#92400e;}
+.alert-blue{background:#dbeafe;border:1px solid #93c5fd;color:#1d4ed8;}
+.alert-navy{background:#e0e7ff;border:1px solid #a5b4fc;color:#1e1b4b;}
+/* CONTENT CARDS */
+.content-card{background:white;border-radius:12px;padding:20px;border:1px solid #e5e7eb;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+.content-card h3{font-size:15px;font-weight:700;color:#1e1b4b;margin-bottom:12px;}
+.content-card p{font-size:13px;color:#374151;line-height:1.75;margin-bottom:8px;}
+.content-card ul{padding-left:20px;margin-bottom:8px;}
+.content-card li{font-size:13px;color:#374151;line-height:1.75;margin-bottom:4px;}
+/* GRID 2 */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;}
+/* QUESTION TYPE CARDS */
+.qt-header{border-radius:12px;padding:18px 20px;margin-bottom:16px;color:white;}
+.qt-header h2{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:4px;}
+.qt-header p{font-size:13px;opacity:0.9;}
+.qt-badge{display:inline-block;background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:3px 12px;font-size:12px;margin-right:8px;margin-top:8px;}
+/* STEPS */
+.steps{counter-reset:step;}
+.step{display:flex;gap:14px;margin-bottom:12px;align-items:flex-start;}
+.step-num{background:#1e1b4b;color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.step-body{font-size:13px;color:#374151;line-height:1.7;flex:1;}
+/* MISTAKES */
+.mistake{display:flex;gap:12px;margin-bottom:10px;padding:12px 16px;border-radius:8px;background:#fef2f2;border-left:4px solid #991b1b;}
+.mistake-x{color:#991b1b;font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px;}
+.mistake-text{font-size:13px;color:#374151;line-height:1.65;}
+.fix{display:flex;gap:12px;margin-bottom:10px;padding:12px 16px;border-radius:8px;background:#dcfce7;border-left:4px solid #166534;}
+.fix-tick{color:#166534;font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px;}
+/* SCAFFOLD FRAME */
+.scaffold{background:#f8fafc;border:2px solid #e5e7eb;border-radius:10px;padding:18px;margin-bottom:16px;}
+.scaffold-row{display:grid;gap:0;margin-bottom:0;}
+.scaffold-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#6b7280;margin-bottom:4px;margin-top:12px;}
+.scaffold-line{background:white;border:1px solid #e5e7eb;border-radius:6px;padding:10px 14px;font-size:13px;color:#374151;line-height:1.6;margin-bottom:6px;}
+.scaffold-line em{color:#6b7280;font-style:italic;}
+.scaffold-line strong{color:#1e1b4b;}
+/* PEEL */
+.peel-block{display:grid;grid-template-columns:56px 1fr;margin-bottom:8px;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb;}
+.peel-letter{display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:white;}
+.peel-content{padding:12px 14px;background:white;}
+.peel-content .peel-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin-bottom:4px;}
+.peel-content .peel-text{font-size:13px;color:#374151;line-height:1.65;}
+.peel-content .peel-starter{font-size:12px;color:#1e1b4b;font-style:italic;margin-top:4px;padding:6px 10px;background:#f0f4ff;border-radius:4px;}
+/* BAND TABLE */
+table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;}
+table th{background:#1e1b4b;color:white;padding:10px 14px;text-align:left;font-size:12px;}
+table td{padding:10px 14px;border-bottom:1px solid #e5e7eb;vertical-align:top;color:#374151;line-height:1.6;}
+table tr:nth-child(even) td{background:#f9fafb;}
+/* EXAMPLE ANSWER */
+.model-essay p{font-size:13px;color:#1f2937;line-height:1.9;margin-bottom:14px;text-indent:1.5em;}
+.model-essay .ao-marker{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;vertical-align:middle;margin-right:4px;}
+.ao1-m{background:#dcfce7;color:#166534;}
+.ao3-m{background:#dbeafe;color:#1d4ed8;}
+.ao2-m{background:#fef3c7;color:#b45309;}
+/* COMMAND WORD CARDS */
+.cw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px;}
+.cw-card{background:white;border-radius:10px;padding:16px;border:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+.cw-card .cw-word{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px;}
+.cw-card .cw-ao{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;margin-bottom:10px;display:inline-block;}
+.cw-card .cw-def{font-size:13px;color:#374151;line-height:1.65;margin-bottom:8px;}
+.cw-card .cw-do{font-size:12px;color:#166534;background:#dcfce7;padding:6px 10px;border-radius:6px;margin-bottom:6px;}
+.cw-card .cw-dont{font-size:12px;color:#991b1b;background:#fef2f2;padding:6px 10px;border-radius:6px;}
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:white;border:1px solid #e5e7eb;border-radius:8px;font-size:13px;font-weight:600;color:#374151;cursor:pointer;margin-bottom:20px;font-family:'Source Sans 3',sans-serif;}
+.back-btn:hover{background:#f9fafb;}
+/* TABS (within pages) */
+.inner-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.inner-tab{padding:8px 16px;border-radius:8px;border:2px solid #e5e7eb;background:white;color:#374151;font-size:13px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:all 0.18s;}
+.inner-tab:hover{border-color:#1e1b4b;color:#1e1b4b;}
+.inner-tab.active{background:#1e1b4b;color:white;border-color:#1e1b4b;}
+.inner-panel{display:none;}
+.inner-panel.active{display:block;}
+/* TOGGLE */
+.toggle-btn{padding:7px 14px;border-radius:8px;border:1px solid;font-size:12px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;margin-right:8px;margin-top:6px;}
+.show-box{display:none;margin-top:10px;border-radius:8px;padding:16px;font-size:13px;line-height:1.75;}
+.show-box.open{display:block;}
+/* COLOUR CHIPS */
+.chip{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;}
+.chip-green{background:#dcfce7;color:#166534;}
+.chip-blue{background:#dbeafe;color:#1d4ed8;}
+.chip-amber{background:#fef3c7;color:#b45309;}
+.chip-red{background:#fef2f2;color:#991b1b;}
+.chip-navy{background:#e0e7ff;color:#1e1b4b;}
+/* RESPONSIVE */
+@media(max-width:640px){
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .hub-grid{grid-template-columns:1fr;}
+  .header h1{font-size:22px;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <p class="header-label">Eduqas A-Level Psychology · Component 1</p>
+  <h1>Exam Technique Guide</h1>
+  <h2>Command Words · Question Types · Scaffolds · Mark Schemes</h2>
+  <div class="header-meta">
+    <span class="header-badge">2hr 15min · 100 marks · 9 questions</span>
+    <span class="header-badge">Answer ALL questions</span>
+    <span class="header-badge">Based on real 2024 paper</span>
+    <span class="header-badge">Past to Present A290U10-1</span>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showPage('hub',this)">🏠 Home</button>
+    <button class="nav-btn" onclick="showPage('cmdwords',this)">📝 Command Words</button>
+    <button class="nav-btn" onclick="showPage('paper',this)">📋 Past Papers</button>
+    <button class="nav-btn" onclick="showPage('heatmap',this)">📊 Frequency + 2027</button>
+    <button class="nav-btn" onclick="showPage('ao1-desc',this)">AO1 Describe [8]</button>
+    <button class="nav-btn" onclick="showPage('ao1-fc',this)">AO1 Findings+Conc [10]</button>
+    <button class="nav-btn" onclick="showPage('ao1-therapy',this)">AO1 Therapy [10]</button>
+    <button class="nav-btn" onclick="showPage('ao3-eval',this)">AO3 Evaluate [8/10]</button>
+    <button class="nav-btn" onclick="showPage('ao3-es',this)">AO3 Ethical+Social [10]</button>
+    <button class="nav-btn" onclick="showPage('ao2-compare',this)">AO2 Compare [10]</button>
+    <button class="nav-btn" onclick="showPage('ao2-justify',this)">AO2 Justify [10]</button>
+    <button class="nav-btn" onclick="showPage('debate24',this)">24-Mark Essay</button>
+    <button class="nav-btn" onclick="showPage('examreports',this)">🗣 Examiner Voice</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ HUB ═══════════════════ -->
+<div id="page-hub" class="page active">
+  <div style="margin-bottom:20px;">
+    <p style="font-size:14px;color:#6b7280;line-height:1.7;">This guide covers every question type on Eduqas Component 1. Pick the question type you need help with. Each section explains what the examiner wants, what students get wrong, and shows you how to structure your answer.</p>
+  </div>
+  <div class="alert alert-amber">⚠️ <strong>Key rule:</strong> There are 9 questions and you must answer <strong>ALL</strong> of them. There is no choice. Allocate approximately 1.2 minutes per mark — Q9 (24 marks) needs at least 28 minutes.</div>
+
+  <div class="hub-grid">
+    <div class="hub-card" style="border-top-color:#4338ca;" onclick="showPage('cmdwords',document.querySelectorAll('.nav-btn')[1])">
+      <div class="card-icon">📝</div>
+      <div class="card-title">Command Words</div>
+      <div class="card-sub">Describe · Evaluate · Discuss · Apply · Explain · To what extent · Identify · Justify</div>
+      <div class="card-tags"><span class="tag">All questions</span><span class="tag">Essential</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#0f766e;" onclick="showPage('paper',document.querySelectorAll('.nav-btn')[2])">
+      <div class="card-icon">📋</div>
+      <div class="card-title">The 2024 Real Paper</div>
+      <div class="card-sub">All 9 questions from the actual exam with mark allocations and AO types</div>
+      <div class="card-tags"><span class="tag">2024 paper</span><span class="tag">AO breakdown</span><span class="tag">Timing</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#1e1b4b;" onclick="showPage('heatmap',document.querySelectorAll('.nav-btn')[3])">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Topic Frequency Heatmap</div>
+      <div class="card-sub">Which topics come up most? 2017–2025 data, examiner warnings, 2026 predictions.</div>
+      <div class="card-tags"><span class="tag">All approaches</span><span class="tag">2026 predictions</span><span class="tag">Examiner warnings</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#166534;" onclick="showPage('ao1-desc',document.querySelectorAll('.nav-btn')[4])">
+      <div class="card-icon">📖</div>
+      <div class="card-title">AO1 Describe Findings [8]</div>
+      <div class="card-sub">Findings ONLY — no conclusions, no evaluation. Myers & Diener type questions.</div>
+      <div class="card-tags"><span class="tag">8 marks</span><span class="tag">AO1</span><span class="tag">~10 min</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#1d4ed8;" onclick="showPage('ao1-fc',document.querySelectorAll('.nav-btn')[4])">
+      <div class="card-icon">🔬</div>
+      <div class="card-title">AO1 Findings + Conclusions [10]</div>
+      <div class="card-sub">BOTH findings AND conclusions required. Raine et al. and Loftus & Palmer type questions.</div>
+      <div class="card-tags"><span class="tag">10 marks</span><span class="tag">AO1</span><span class="tag">~12 min</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#7e22ce;" onclick="showPage('ao1-therapy',document.querySelectorAll('.nav-btn')[5])">
+      <div class="card-icon">🛋️</div>
+      <div class="card-title">AO1 Describe Therapy [10]</div>
+      <div class="card-sub">Describe components of a therapy. CBT, REBT, SD, Dream Analysis etc.</div>
+      <div class="card-tags"><span class="tag">10 marks</span><span class="tag">AO1</span><span class="tag">~12 min</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#0f766e;" onclick="showPage('ao3-eval',document.querySelectorAll('.nav-btn')[6])">
+      <div class="card-icon">⚖️</div>
+      <div class="card-title">AO3 Evaluate [8 or 10]</div>
+      <div class="card-sub">Both strengths AND weaknesses needed for 6+ marks. Evaluate an approach or therapy.</div>
+      <div class="card-tags"><span class="tag">8-10 marks</span><span class="tag">AO3</span><span class="tag">PEEL</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#b45309;" onclick="showPage('ao3-es',document.querySelectorAll('.nav-btn')[7])">
+      <div class="card-icon">🌍</div>
+      <div class="card-title">AO3 Ethical + Social [10]</div>
+      <div class="card-sub">BOTH ethical issues AND social implications needed. Loftus & Palmer type questions.</div>
+      <div class="card-tags"><span class="tag">10 marks</span><span class="tag">AO3</span><span class="tag">Two sides</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#dc2626;" onclick="showPage('ao2-compare',document.querySelectorAll('.nav-btn')[8])">
+      <div class="card-icon">🔄</div>
+      <div class="card-title">AO2 Compare + Contrast [10]</div>
+      <div class="card-sub">Compare two approaches using a scenario. EVERY point must link back to the scenario.</div>
+      <div class="card-tags"><span class="tag">10 marks</span><span class="tag">AO2</span><span class="tag">Scenario</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#6d28d9;" onclick="showPage('ao2-justify',document.querySelectorAll('.nav-btn')[9])">
+      <div class="card-icon">💬</div>
+      <div class="card-title">AO2 Justify Therapy [10]</div>
+      <div class="card-sub">Explain WHY an approach would recommend a therapy. Link assumptions → therapy.</div>
+      <div class="card-tags"><span class="tag">10 marks</span><span class="tag">AO2</span><span class="tag">Application</span></div>
+    </div>
+    <div class="hub-card" style="border-top-color:#991b1b;grid-column:1/-1;max-width:480px;justify-self:center;width:100%;" onclick="showPage('debate24',document.querySelectorAll('.nav-btn')[10])">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">24-Mark Contemporary Debate Essay</div>
+      <div class="card-sub">12 AO1 + 12 AO3. Both sides. Ethical + Social + Economic. Evidence-based conclusion. Full structure guide.</div>
+      <div class="card-tags"><span class="tag">24 marks</span><span class="tag">AO1+AO3</span><span class="tag">~28 min</span><span class="tag">ESE Framework</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ COMMAND WORDS ═══════════════════ -->
+<div id="page-cmdwords" class="page">
+  <h2 class="section-title">Command Words</h2>
+  <p class="section-sub">The command word tells you exactly what the examiner wants. Getting this wrong loses marks instantly — describing when you should evaluate, or evaluating when you should describe.</p>
+
+  <div class="alert alert-red">❌ <strong>Most common error:</strong> Adding evaluation (strengths/weaknesses) to a <em>describe</em> question. Evaluation does not gain credit on AO1 questions — it wastes your time and earns zero marks.</div>
+
+  <div class="cw-grid">
+    <div class="cw-card">
+      <div class="cw-word" style="color:#166534;">Describe</div>
+      <div class="cw-ao" style="background:#dcfce7;color:#166534;">AO1 · Knowledge</div>
+      <div class="cw-def">Give accurate, detailed information about what something is, how it works, or what was found.</div>
+      <div class="cw-do">✅ DO: Give facts, findings, procedures, components. Use specific details and correct terminology.</div>
+      <div class="cw-dont">❌ DON'T: Add strengths, weaknesses or any evaluation. Do not say "a strength of this is..."</div>
+    </div>
+    <div class="cw-card">
+      <div class="cw-word" style="color:#166534;">Outline</div>
+      <div class="cw-ao" style="background:#dcfce7;color:#166534;">AO1 · Knowledge</div>
+      <div class="cw-def">A briefer form of describe — key points only, without extensive detail.</div>
+      <div class="cw-do">✅ DO: Cover 2-3 key points accurately. More breadth, less depth than a describe answer.</div>
+      <div class="cw-dont">❌ DON'T: Write a full essay. Outline questions are usually lower marks (2-4).</div>
+    </div>
+    <div class="cw-card">
+      <div class="cw-word" style="color:#166534;">Explain</div>
+      <div class="cw-ao" style="background:#dcfce7;color:#166534;">AO1 · Knowledge</div>
+      <div class="cw-def">Give reasons — explain WHY or HOW something happens. Not just what, but why it is the case.</div>
+      <div class="cw-do">✅ DO: Always use "because", "this means that", "this is because". Link your knowledge to the question.</div>
+      <div class="cw-dont">❌ DON'T: Just describe without giving reasons or making the link explicit.</div>
+    </div>
+    <div class="cw-card">
+      <div class="cw-word" style="color:#1d4ed8;">Evaluate</div>
+      <div class="cw-ao" style="background:#dbeafe;color:#1d4ed8;">AO3 · Evaluation</div>
+      <div class="cw-def">Assess strengths AND weaknesses. Give a judgement based on evidence.</div>
+      <div class="cw-do">✅ DO: Include BOTH strengths AND weaknesses. Use PEEL. Reach a conclusion. Use evidence.</div>
+      <div class="cw-dont">❌ DON'T: Write only strengths OR only weaknesses — you cannot access 6+ marks with one side only.</div>
+    </div>
+    <div class="cw-card">
+      <div class="cw-word" style="color:#1d4ed8;">Discuss</div>
+      <div class="cw-ao" style="background:#dbeafe;color:#1d4ed8;">AO3 · Evaluation</div>
+      <div class="cw-def">Consider different aspects — present arguments on both sides of an issue.</div>
+      <div class="cw-do">✅ DO: Present FOR and AGAINST. Develop each argument. Reach an overall conclusion.</div>
+      <div class="cw-dont">❌ DON'T: Argue only one side — you need both perspectives. Do not just list points without developing them.</div>
+    </div>
+    <div class="cw-card">
+      <div class="cw-word" style="color:#b45309;">Apply / With reference to the scenario</div>
+      <div class="cw-ao" style="background:#fef3c7;color:#b45309;">AO2 · Application</div>
+      <div class="cw-def">Use psychological knowledge in the context given. Every point must explicitly link to the scenario or character named in the question.</div>
+      <div class="cw-do">✅ DO: Use the name of the person/situation from the question in every paragraph. Generic answers score 1-2 marks maximum.</div>
+      <div class="cw-dont">❌ DON'T: Write general psychology without linking to the scenario. Never ignore the scenario.</div>
+    </div>
+    <div class="cw-card">
+      <div class="cw-word" style="color:#1d4ed8;">To what extent</div>
+      <div class="cw-ao" style="background:#dbeafe;color:#1d4ed8;">AO3 · Evaluation</div>
+      <div class="cw-def">Take a position and justify it. How far do you agree — and why? You must reach a clear verdict.</div>
+      <div class="cw-do">✅ DO: Argue both sides, weigh up the evidence, and reach a clear evidence-based conclusion: "largely agree because..."</div>
+      <div class="cw-dont">❌ DON'T: Sit on the fence. A conclusion that simply says "there are arguments on both sides" gains very few marks.</div>
+    </div>
+    <div class="cw-card">
+      <div class="cw-word" style="color:#166534;">Identify</div>
+      <div class="cw-ao" style="background:#dcfce7;color:#166534;">AO1 · Knowledge</div>
+      <div class="cw-def">Name it — usually with a brief explanation. Short answers only.</div>
+      <div class="cw-do">✅ DO: Name the thing being asked for. Add a sentence of explanation for 2-mark questions.</div>
+      <div class="cw-dont">❌ DON'T: Write a paragraph. Identify questions are 2-3 marks maximum.</div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>⚠️ Critical distinctions — common exam errors</h3>
+    <div class="grid2">
+      <div>
+        <div class="alert alert-red" style="margin-bottom:8px;"><strong>"Describe the findings..."</strong><br>Only findings. Conclusions gain NO credit. Don't write "this shows that..." or "Raine concluded..."</div>
+        <div class="alert alert-red"><strong>"Evaluate the ethical issues AND social implications..."</strong><br>Both are required. Only covering ethical issues, however thoroughly, cannot score above 5/10.</div>
+      </div>
+      <div>
+        <div class="alert alert-green" style="margin-bottom:8px;"><strong>"Describe the findings AND conclusions..."</strong><br>Now you need both. The word "conclusions" explicitly appears. Covering only findings caps you at 5/10.</div>
+        <div class="alert alert-green"><strong>"Evaluate the strengths AND weaknesses..."</strong><br>Both are required. Writing only strengths, however well, cannot score above 5/10. Both sides needed for top band.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PAST PAPERS ═══════════════════ -->
+<div id="page-paper" class="page">
+  <h2 class="section-title">Past Exam Papers — Eduqas Component 1</h2>
+  <p class="section-sub">Real questions from the actual exams. Use these to understand question types, mark allocations and AO distribution across years.</p>
+
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showInner('paper-2026',this)">📋 2026 (Latest)</button>
+    <button class="inner-tab" onclick="showInner('paper-2025',this)">📋 2025</button>
+    <button class="inner-tab" onclick="showInner('paper-2024',this)">📋 2024</button>
+    <button class="inner-tab" onclick="showInner('paper-2023',this)">📋 2023</button>
+    <button class="inner-tab" onclick="showInner('paper-2022',this)">📋 2022</button>
+  </div>
+
+  <!-- 2026 PAPER -->
+  <div id="inner-paper-2026" class="inner-panel active">
+    <div class="alert alert-green">✅ <strong>Summer 2026 — Eduqas Component 1 A290U10-1</strong> · 2hr 15min · Answer ALL questions</div>
+    <table>
+      <thead><tr><th>Q</th><th>Marks</th><th>AO</th><th>Command word</th><th>The actual question (2026)</th><th>Timing</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1(a)</strong></td><td>4</td><td><span class="chip chip-green">AO1</span></td><td>Describe</td><td>Using examples from psychology, describe the cognitive assumption of <strong>'computer analogy'</strong></td><td>~5 min</td></tr>
+        <tr><td><strong>1(b)</strong></td><td>4</td><td><span class="chip chip-green">AO1</span></td><td>Describe</td><td>Using examples from psychology, describe the behaviourist assumption of <strong>'humans and animals learn in similar ways'</strong></td><td>~5 min</td></tr>
+        <tr><td><strong>2</strong></td><td>12</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate</td><td>John Bowlby's research <em>Forty-four juvenile thieves</em> (1944) — <strong>evaluate this research</strong> ⚠️ Both strengths AND weaknesses needed</td><td>~14 min</td></tr>
+        <tr><td><strong>3(a)</strong></td><td>10</td><td><span class="chip chip-green">AO1</span></td><td>Describe</td><td>Describe the main components of <strong>drug therapy OR psychosurgery</strong> ⚠️ Choose ONE</td><td>~12 min</td></tr>
+        <tr><td><strong>3(b)</strong></td><td>5</td><td><span class="chip chip-blue">AO3</span></td><td>Briefly discuss</td><td>'Biological therapies are unethical in treating patients with mental illness.' Briefly discuss <strong>one or more ethical issues</strong> of the therapy in 3(a) ⚠️ Must link back to your chosen therapy</td><td>~6 min</td></tr>
+        <tr><td><strong>4</strong></td><td>6</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate</td><td>Evaluate the <strong>social implications</strong> of Myers and Diener's (1995) research <em>Who is happy?</em> ⚠️ Social implications only — not ethical issues</td><td>~7 min</td></tr>
+        <tr><td><strong>5</strong></td><td>10</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate</td><td>'The behaviourist approach has limitations… but is also useful because it is successfully applied in the real world.' Evaluate <strong>strengths AND weaknesses</strong> of the behaviourist approach ⚠️ Both sides required for 6+</td><td>~12 min</td></tr>
+        <tr><td><strong>6</strong></td><td>5</td><td><span class="chip chip-amber">AO2</span></td><td>Apply</td><td>Apply your knowledge of the psychodynamic assumption of <strong>'the unconscious mind'</strong> to explain one human behaviour ⚠️ Must link assumption → behaviour explicitly</td><td>~6 min</td></tr>
+        <tr><td><strong>7</strong></td><td>10</td><td><span class="chip chip-green">AO1</span></td><td>Describe</td><td>Describe either <strong>systematic desensitisation OR aversion therapy</strong> ⚠️ Choose ONE — describe stages/components in detail</td><td>~12 min</td></tr>
+        <tr><td><strong>8</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Compare and contrast</td><td>Using examples from psychology, <strong>compare and contrast the cognitive approach and the biological approach</strong> ⚠️ Both similarities AND differences needed</td><td>~12 min</td></tr>
+        <tr><td><strong>9</strong></td><td>24</td><td><span class="chip chip-green">AO1</span> + <span class="chip chip-blue">AO3</span></td><td>Discuss the extent to which</td><td>Contemporary debate essay [12 AO1 + 12 AO3] — debate topic TBC</td><td>~28 min</td></tr>
+      </tbody>
+    </table>
+    <div class="content-card">
+      <h3>📊 2026 — Marks by Assessment Objective</h3>
+      <div class="grid3">
+        <div style="background:#dcfce7;border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#166534;">28</div>
+          <div style="font-size:12px;color:#374151;margin-top:4px;"><strong>AO1 marks</strong><br>Qs 1a, 1b, 3a, 7 + half of Q9</div>
+        </div>
+        <div style="background:#fef3c7;border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#b45309;">15</div>
+          <div style="font-size:12px;color:#374151;margin-top:4px;"><strong>AO2 marks</strong><br>Qs 6 and 8</div>
+        </div>
+        <div style="background:#dbeafe;border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#1d4ed8;">33</div>
+          <div style="font-size:12px;color:#374151;margin-top:4px;"><strong>AO3 marks</strong><br>Qs 2, 3b, 4, 5 + half of Q9</div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-amber">⚠️ <strong>2026 notable patterns:</strong> Heavy AO3 weighting (33 marks). Three questions on the Behaviourist approach. 4-mark assumption questions returned (not seen in 2024). Bowlby evaluated at 12 marks — unusual format. Myers &amp; Diener assessed on social implications <em>only</em> (not findings or conclusions). No standalone Raine et al. or Loftus &amp; Palmer questions.</div>
+  </div>
+
+  <!-- 2025 PAPER -->
+  <div id="inner-paper-2025" class="inner-panel">
+    <div class="alert alert-blue">ℹ️ <strong>Summer 2025 — Eduqas Component 1 A290U10-1</strong> · Questions reconstructed from examiner report (official paper held securely for 12 months)</div>
+    <div class="alert alert-amber">⚠️ <strong>From 2025 examiner report:</strong> Contemporary debate was "very disappointing" — many didn't attempt it or gave generic Loftus &amp; Palmer summaries. Conclusions absent or repetitive in ALL AO3 questions. Time management issues — too long on 4-mark questions.</div>
+    <table>
+      <thead><tr><th>Q</th><th>Marks</th><th>AO</th><th>Topic</th><th>Examiner warning</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>4+4+4</td><td><span class="chip chip-green">AO1</span></td><td>Behaviourist assumptions (choice given — behaviour through conditioning / humans &amp; animals / blank slate)</td><td>Highest scoring Q. 'Humans &amp; animals' needed comparison to human learning (e.g. Watson &amp; Rayner) — animal examples alone insufficient</td></tr>
+        <tr><td><strong>2</strong></td><td>6</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate social implications of Myers &amp; Diener (1995)</td><td>Many stated M&amp;D ran original research — they did a literature review. Conclusions very weak — limited to middle bands</td></tr>
+        <tr><td><strong>3</strong></td><td>5</td><td><span class="chip chip-amber">AO2</span></td><td>Apply psychodynamic assumption to explain one human behaviour</td><td>Tripartite personality answers focused only on the ID — must include ego AND superego interaction for full credit</td></tr>
+        <tr><td><strong>4(a)</strong></td><td>4/10</td><td><span class="chip chip-green">AO1</span></td><td>Describe Mindfulness OR Quality of Life Therapy</td><td>Mindfulness: basic if only meditation mentioned. Must include MBSR + 3 stages. QoLT answered well with Quality of Life Inventory and Three Pillars</td></tr>
+        <tr><td><strong>4(b)</strong></td><td>4/10</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate effectiveness of chosen therapy</td><td>Least attempted. Ethics references gained NO credit — question was effectiveness only. "Accessible" ≠ "effective"</td></tr>
+        <tr><td><strong>5</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Compare biological and psychodynamic approaches</td><td>Better AO2 than prev. years. Must explain WHY they differ (e.g. bio treats symptoms, psychodynamic treats causes) not just list different therapies</td></tr>
+        <tr><td><strong>6</strong></td><td>8/10</td><td><span class="chip chip-green">AO1</span></td><td>Describe Kohlberg's stages of moral development</td><td>Must include stages with ages AND named processes. Rule: if the study couldn't be replicated from your answer, it's not thorough enough</td></tr>
+        <tr><td><strong>7</strong></td><td>10</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate [approach] strengths AND weaknesses</td><td>Second most accessible. Both sides provided well. Weak conclusions still limiting marks — must introduce NEW information</td></tr>
+        <tr><td><strong>8</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Apply to scenario — both sides argument with clear links throughout</td><td>Answers brief/superficial. Needs both sides of argument with VERY clear links to scenario throughout</td></tr>
+        <tr><td><strong>9</strong></td><td>24</td><td><span class="chip chip-green">AO1</span>+<span class="chip chip-blue">AO3</span></td><td>Contemporary debate — Reliability of Eyewitness Testimony [24]</td><td>Most answers described only Loftus &amp; Palmer — minimal credit. Need wide range of theories + research. EWT appeared in 2019 and 2022 also — 3× total</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2023 PAPER -->
+  <div id="inner-paper-2023" class="inner-panel">
+    <div class="alert alert-blue">ℹ️ <strong>Summer 2023 — Eduqas Component 1 A290U10-1</strong> · Questions reconstructed from examiner report</div>
+    <div class="alert alert-amber">⚠️ <strong>From 2023 examiner report:</strong> Regression back to textbook model answers. Lowest attempt rate on Bowlby findings &amp; conclusions. AO2 scenario answers still failing to reference key scenario terms. Contemporary debate generic — pre-learned conditioning essays did not address "control" or ethics specifically.</div>
+    <table>
+      <thead><tr><th>Q</th><th>Marks</th><th>AO</th><th>Topic</th><th>Examiner warning</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1(a)</strong></td><td>4</td><td><span class="chip chip-green">AO1</span></td><td>Biological assumption — neurotransmitters (with examples)</td><td>Many focused on neurons not neurotransmitters. Named serotonin/dopamine but didn't link to psychological disorders</td></tr>
+        <tr><td><strong>1(b)</strong></td><td>4</td><td><span class="chip chip-green">AO1</span></td><td>Biological assumption — evolutionary influences (with examples)</td><td>Examples generally good but lacked key terms: natural selection, survival of the fittest, EEA. Animal evolution examples (giraffes etc.) not credited</td></tr>
+        <tr><td><strong>1(c)</strong></td><td>4</td><td><span class="chip chip-green">AO1</span></td><td>Positive assumption — authenticity of goodness and excellence</td><td>Most wrote about 'the good life' not 'authenticity of goodness' — wrong assumption. Very few reached reasonable band</td></tr>
+        <tr><td><strong>2</strong></td><td>10</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate CBT or REBT</td><td>Confusion between CBT and dream analysis. No research evidence in most answers — rote list of points with no depth. Conclusions absent</td></tr>
+        <tr><td><strong>3</strong></td><td>10</td><td><span class="chip chip-green">AO1</span></td><td>Describe findings AND conclusions of Bowlby (1944)</td><td>Lowest attempt rate. Brief findings with wrong values. Many wrote methodology not findings. Six character types listed without numbers = no credit</td></tr>
+        <tr><td><strong>4</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Beth and Ravi scenario — psychodynamic approach application</td><td>Mean 3.9/10. Most used learned model answer without referencing Beth, Ravi, disagrees, or useful. Scenario words must appear in every paragraph</td></tr>
+        <tr><td><strong>5(a)</strong></td><td>8</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate methodology of Loftus &amp; Palmer (1974)</td><td>Many top band answers. Strong range of methodological evaluation points</td></tr>
+        <tr><td><strong>5(b)</strong></td><td>-</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate [ethical/social] of Loftus &amp; Palmer</td><td>Not attempted by many. Generic answers with no specific L&amp;P link</td></tr>
+        <tr><td><strong>6</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Compare and contrast two approaches</td><td>Most included similarities AND differences. Best answers used conjunctions (whereas, similarly, conversely) + research evidence + conclusions</td></tr>
+        <tr><td><strong>7</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Rachel scenario — apply positive therapy (mindfulness/QoLT)</td><td>Least answered. Candidates described therapy not applied it. Must reference Rachel, appropriate, clients throughout</td></tr>
+        <tr><td><strong>8</strong></td><td>24</td><td><span class="chip chip-green">AO1</span>+<span class="chip chip-blue">AO3</span></td><td>Contemporary debate — Conditioning techniques to control children [24]</td><td>Most disappointing. Generic textbook answers failed to address "control" specifically. Ethics barely mentioned. Punishment ≠ negative reinforcement (common error)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2022 PAPER -->
+  <div id="inner-paper-2022" class="inner-panel">
+    <div class="alert alert-blue">ℹ️ <strong>Summer 2022 — Eduqas Component 1 A290U10-1</strong> · Questions reconstructed from examiner report</div>
+    <div class="alert alert-green">✓ <strong>From 2022 examiner report:</strong> Most candidates attempted all questions. First year where some centres used new Eduqas resources — visible improvement in those groups. Links between components (drug therapy, addiction, schizophrenia) were encouraged and credited.</div>
+    <table>
+      <thead><tr><th>Q</th><th>Marks</th><th>AO</th><th>Topic</th><th>Examiner warning</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>8</td><td><span class="chip chip-green">AO1</span></td><td>Describe methodology of Bowlby (1944) '44 Juvenile Thieves'</td><td>Many answers missing key detail: grading of thieves, control group not thieves, case study method. 'Parents' used instead of 'mother' — inaccurate, loses marks</td></tr>
+        <tr><td><strong>2</strong></td><td>10</td><td><span class="chip chip-blue">AO3</span></td><td>Discuss ethical considerations of CBT or REBT</td><td>Many wrote effectiveness not ethics. Ethical considerations must link specifically to the therapy — generic ethics of consent/privacy not credited without therapy-specific application</td></tr>
+        <tr><td><strong>3</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Apply behaviourist assumptions to explain one human behaviour</td><td>Lowest facility factor (27.5). Most described assumptions without applying to behaviour. Harlow's monkeys not appropriate for behaviourist approach</td></tr>
+        <tr><td><strong>4</strong></td><td>8</td><td><span class="chip chip-green">AO1</span></td><td>Describe two psychodynamic assumptions [most accessible Q — 4.8 mean]</td><td>Most accessible question. Best used range of Freudian terminology. Errors: muddled ID/Superego, wrong order of psychosexual stages</td></tr>
+        <tr><td><strong>5</strong></td><td>10</td><td><span class="chip chip-green">AO1</span></td><td>Describe drug therapy OR psychosurgery</td><td>Drug therapy answered better than psychosurgery. Psychosurgery lacked key terms: leucotome, gamma knife. Answers can go beyond textbook — agonist/antagonist drugs from Comp 3</td></tr>
+        <tr><td><strong>6</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>'Watson &amp; Rayner's research has negative social implications for psychology today' — apply to evaluate</td><td>Almost all candidates ignored "today" and "negative social implications" from the statement. Must reference key statement terms. Little Albert's mother DID consent — common misconception</td></tr>
+        <tr><td><strong>7</strong></td><td>10</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate Raine et al. (1997)</td><td>Good attempt rate but low mean (3.8). Generic evaluation points with limited Raine-specific links. Gender imbalance is NOT an issue — sample reflected prison population. No conclusions in most scripts</td></tr>
+        <tr><td><strong>8</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Compare and contrast two approaches [positive approach included]</td><td>Determinism vs reductionism confusion. Key error: the positive approach is NOT on the side of nature OR nurture — it is based on free will, which is free from BOTH</td></tr>
+        <tr><td><strong>9</strong></td><td>24</td><td><span class="chip chip-green">AO1</span>+<span class="chip chip-blue">AO3</span></td><td>Contemporary debate — Reliability of Eyewitness Testimony [24] ⚠️ Mean only 10.3/24</td><td>Textbook answers lacking independent research. Limited range — must cover multiple theories not just Loftus &amp; Palmer. Need statistics and research-linked conclusions</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2024 PAPER -->
+  <div id="inner-paper-2024" class="inner-panel">
+    <div class="alert alert-blue">ℹ️ <strong>Summer 2024 — Eduqas Component 1 A290U10-1</strong> · 2hr 15min · Answer ALL questions</div>
+    <table>
+      <thead><tr><th>Q</th><th>Marks</th><th>AO</th><th>Command word</th><th>The actual question (2024)</th><th>Timing</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>8</td><td><span class="chip chip-green">AO1</span></td><td>Describe</td><td>Describe the <strong>findings</strong> of Myers and Diener's (1995) research 'Who is happy?' ⚠️ Findings only — no conclusions</td><td>~10 min</td></tr>
+        <tr><td><strong>2</strong></td><td>10</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate</td><td>Evaluate the biological approach in terms of its <strong>strengths and weaknesses</strong> ⚠️ Both sides required for 6–10</td><td>~12 min</td></tr>
+        <tr><td><strong>3</strong></td><td>8</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate</td><td>Evaluate the <strong>effectiveness</strong> of either systematic desensitisation OR aversion therapy</td><td>~10 min</td></tr>
+        <tr><td><strong>4</strong></td><td>10</td><td><span class="chip chip-green">AO1</span></td><td>Describe</td><td>Describe the <strong>findings and conclusions</strong> of Raine et al. (1997) ⚠️ BOTH findings AND conclusions — each alone caps at 5</td><td>~12 min</td></tr>
+        <tr><td><strong>5</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Compare / scenario</td><td>Compare and contrast the cognitive and positive approaches (with reference to scenario about a student and Mr Haggerty) ⚠️ Every point must reference the scenario</td><td>~12 min</td></tr>
+        <tr><td><strong>6</strong></td><td>10</td><td><span class="chip chip-green">AO1</span></td><td>Describe</td><td>Describe either <strong>cognitive behavioural therapy OR rational emotive behaviour therapy</strong> ⚠️ Choose ONE</td><td>~12 min</td></tr>
+        <tr><td><strong>7</strong></td><td>10</td><td><span class="chip chip-blue">AO3</span></td><td>Evaluate</td><td>Evaluate the <strong>ethical issues AND social implications</strong> of Loftus and Palmer (1974) ⚠️ BOTH required for 6–10</td><td>~12 min</td></tr>
+        <tr><td><strong>8</strong></td><td>10</td><td><span class="chip chip-amber">AO2</span></td><td>Discuss why</td><td>Discuss why a psychologist from the psychodynamic approach would consider <strong>dream analysis OR psychodrama</strong> appropriate ⚠️ Link assumptions to therapy</td><td>~12 min</td></tr>
+        <tr><td><strong>9</strong></td><td>24</td><td><span class="chip chip-green">AO1</span> + <span class="chip chip-blue">AO3</span></td><td>Discuss the extent to which</td><td>'It is not essential that the mother is the primary caregiver of an infant.' [12 AO1 + 12 AO3]</td><td>~28 min</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ AO1 DESCRIBE [8] ═══════════════════ -->
+<div id="page-ao1-desc" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#166534,#15803d);">
+    <h2>AO1 — Describe Findings [8 marks]</h2>
+    <p>Demonstrate knowledge and understanding of a study's findings.</p>
+    <span class="qt-badge">~10 minutes</span>
+    <span class="qt-badge">AO1 only</span>
+    <span class="qt-badge">No evaluation</span>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <div class="content-card">
+        <h3>What does the examiner want?</h3>
+        <p><strong>Depth AND range</strong> — not just one finding in detail, and not a long list without explanation. You need several findings, each explained with specific detail and terminology.</p>
+        <p>For a findings-only question: <span class="chip chip-red">conclusions gain NO credit</span>. Do not write "Raine concluded..." or "this shows that..."</p>
+        <p>Use precise figures where possible (e.g. "approximately 170,000 people across 16 countries").</p>
+      </div>
+      <div class="content-card">
+        <h3>❌ Common mistakes</h3>
+        <div class="mistake"><span class="mistake-x">✗</span><span class="mistake-text"><strong>Adding conclusions:</strong> "This finding shows that happiness is determined by personality" — this is a conclusion and gains no credit on a findings-only question.</span></div>
+        <div class="mistake"><span class="mistake-x">✗</span><span class="mistake-text"><strong>Adding evaluation:</strong> "A strength of this finding is..." — evaluation gains zero marks on AO1 questions.</span></div>
+        <div class="mistake"><span class="mistake-x">✗</span><span class="mistake-text"><strong>Too narrow:</strong> Writing only one finding in detail — you need range (several different findings) as well as depth.</span></div>
+        <div class="fix"><span class="fix-tick">✓</span><span class="mistake-text"><strong>Correct:</strong> Report several distinct findings with specific statistics, naming the relevant comparisons (e.g. culture, age, money, traits).</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="content-card">
+        <h3>Band descriptors (from the real mark scheme)</h3>
+        <table>
+          <thead><tr><th>Marks</th><th>What this looks like</th></tr></thead>
+          <tbody>
+            <tr><td><strong>7–8</strong></td><td>Thorough accuracy. Depth AND range. Effective terminology. Logical structure.</td></tr>
+            <tr><td><strong>5–6</strong></td><td>Reasonable accuracy. Depth and range but not in equal measure. Good terminology.</td></tr>
+            <tr><td><strong>3–4</strong></td><td>Basic accuracy. Depth OR range (not both). Some terminology.</td></tr>
+            <tr><td><strong>1–2</strong></td><td>Superficial. Little terminology. Lacks structure.</td></tr>
+          </tbody>
+        </table>
+        <div class="alert alert-amber">⏱ <strong>Timing:</strong> 8 marks = approximately 10 minutes. If you are still writing after 12 minutes, move on.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Scaffold — How to structure your answer</h3>
+    <div class="alert alert-navy">📋 <strong>The real 2024 Q1:</strong> "Describe the findings of Myers and Diener's (1995) research 'Who is happy?'" [8] — Findings only. No conclusions.</div>
+    <div class="scaffold">
+      <div class="scaffold-label">Opening sentence — introduce the study briefly</div>
+      <div class="scaffold-line"><em>"Myers and Diener (1995) conducted a meta-analytic review of studies of subjective wellbeing, including Inglehart's (1990) survey of approximately 170,000 people across 16 countries. The findings covered several demographic and personal factors..."</em></div>
+
+      <div class="scaffold-label">Finding 1 — Happiness and age / gender / race</div>
+      <div class="scaffold-line"><em>"In terms of age, happiness levels showed no real difference across the lifespan, although the predictors of happiness changed with age. In terms of gender, there was also no significant difference overall, although women were found to be twice as vulnerable to depression and anxiety whilst men were five times more vulnerable to alcoholism."</em></div>
+
+      <div class="scaffold-label">Finding 2 — Culture</div>
+      <div class="scaffold-line"><em>"In terms of culture, large differences were found. For example, in Portugal approximately 10% of people reported being very happy, compared to approximately 40% of people in the Netherlands."</em></div>
+
+      <div class="scaffold-label">Finding 3 — Money and traits</div>
+      <div class="scaffold-line"><em>"The relationship between money and happiness showed only a moderate positive correlation. The traits most associated with happiness were self-esteem, a sense of personal control, optimism and extraversion."</em></div>
+
+      <div class="scaffold-label">Finding 4 — Relationships / Flow / Faith</div>
+      <div class="scaffold-line"><em>"People with more friends and closer relationships reported higher levels of happiness and positive emotion. Those with greater work satisfaction also reported higher life satisfaction. Religious people reported higher levels of happiness than non-religious people."</em></div>
+    </div>
+    <button class="toggle-btn" style="background:#dcfce7;color:#166534;border-color:#86efac;" onclick="toggleBox(this,'ms-ao1desc')">✅ View mark scheme points</button>
+    <div id="ms-ao1desc" class="show-box" style="background:#dcfce7;border:1px solid #86efac;color:#166534;">
+      <strong>Credit will be given for:</strong><br>
+      • Happiness and age — no real difference; predictors change<br>
+      • Happiness and gender — generally no difference; women more vulnerable to depression, men to alcoholism<br>
+      • Happiness and race — no real difference (Crocker &amp; Major, 1989)<br>
+      • Happiness and culture — large differences (Portugal ~10% vs Netherlands ~40%)<br>
+      • Money and happiness — moderate positive correlation<br>
+      • Traits of happy people — self-esteem, personal control, optimism, extraversion<br>
+      • Relationships — more friends = happier, healthier, less likely to die prematurely<br>
+      • Flow — work satisfaction linked to life satisfaction<br>
+      • Faith — religious people report higher happiness<br>
+      <br><strong>⚠️ N.B. Conclusions will not gain any credit.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AO1 FINDINGS + CONCLUSIONS [10] ═══════════════════ -->
+<div id="page-ao1-fc" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#1d4ed8,#1e40af);">
+    <h2>AO1 — Describe Findings AND Conclusions [10 marks]</h2>
+    <p>BOTH findings AND conclusions must be covered. Each alone caps you at 5/10.</p>
+    <span class="qt-badge">~12 minutes</span>
+    <span class="qt-badge">AO1 only</span>
+    <span class="qt-badge">Both required</span>
+  </div>
+
+  <div class="alert alert-red">🚨 <strong>Critical rule from the real mark scheme:</strong> "Both findings and conclusions must be included to access the 6–10 mark range." Writing only findings OR only conclusions, however thoroughly, <strong>cannot score above 5/10</strong>.</div>
+
+  <div class="content-card">
+    <h3>Findings vs Conclusions — what is the difference?</h3>
+    <div class="grid2">
+      <div style="background:#dcfce7;border-radius:8px;padding:14px;">
+        <strong style="color:#166534;font-size:13px;">FINDINGS</strong>
+        <p style="font-size:13px;margin-top:6px;line-height:1.7;">What was measured or observed in the study — the raw results. Numbers, comparisons, patterns in the data.</p>
+        <p style="font-size:12px;color:#374151;margin-top:6px;font-style:italic;">"The NGRI murderers showed <strong>reduced glucose metabolism in the prefrontal cortex</strong> compared to matched controls."</p>
+      </div>
+      <div style="background:#dbeafe;border-radius:8px;padding:14px;">
+        <strong style="color:#1d4ed8;font-size:13px;">CONCLUSIONS</strong>
+        <p style="font-size:13px;margin-top:6px;line-height:1.7;">What the findings mean — what can be inferred or concluded from those results. The interpretation.</p>
+        <p style="font-size:12px;color:#374151;margin-top:6px;font-style:italic;">"Raine concluded there is a <strong>link between brain dysfunction and a predisposition to violence</strong>, but warned findings do not mean violence is biologically determined."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="content-card">
+      <h3>❌ Common mistakes</h3>
+      <div class="mistake"><span class="mistake-x">✗</span><span class="mistake-text"><strong>Writing only findings:</strong> Detailed findings but no conclusions — caps at 5/10 regardless of quality.</span></div>
+      <div class="mistake"><span class="mistake-x">✗</span><span class="mistake-text"><strong>Confusing findings with conclusions:</strong> "Raine found that murderers were more likely to be violent" is a conclusion, not a finding.</span></div>
+      <div class="mistake"><span class="mistake-x">✗</span><span class="mistake-text"><strong>Rushing conclusions:</strong> One-sentence conclusion after long findings section — aim for roughly half/half.</span></div>
+      <div class="fix"><span class="fix-tick">✓</span><span class="mistake-text"><strong>Correct:</strong> Structure your answer clearly — findings first, then conclusions. Use "Raine found that..." for findings and "Raine concluded that..." for conclusions.</span></div>
+    </div>
+    <div class="content-card">
+      <h3>Band descriptors (Raine et al. Q4, 2024)</h3>
+      <table>
+        <thead><tr><th>Marks</th><th>What this looks like</th></tr></thead>
+        <tbody>
+          <tr><td><strong>9–10</strong></td><td>Thorough findings AND conclusions. Depth and range. Effective terminology. Logical structure.</td></tr>
+          <tr><td><strong>6–8</strong></td><td>Reasonable findings AND conclusions. Depth and range but not equal. Good terminology.</td></tr>
+          <tr><td><strong>3–5</strong></td><td>Basic findings AND conclusions — OR thorough on ONE of them only.</td></tr>
+          <tr><td><strong>1–2</strong></td><td>Superficial throughout — OR reasonable on ONE of them only.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Scaffold — Raine, Buchsbaum &amp; LaCasse (1997)</h3>
+    <div class="alert alert-navy">📋 <strong>The real 2024 Q4:</strong> "Describe the findings and conclusions of Raine et al. (1997)." [10]</div>
+    <div class="scaffold">
+      <div class="scaffold-label">Introduce the study briefly</div>
+      <div class="scaffold-line"><em>"Raine et al. (1997) used PET scanning to measure glucose metabolism — a marker of brain activity — in 41 NGRI murderers compared to 41 matched controls. The study examined 14 different brain areas."</em></div>
+
+      <div class="scaffold-label">Findings — brain areas with REDUCED activity in NGRIs</div>
+      <div class="scaffold-line"><em>"The NGRI group showed reduced glucose metabolism in the prefrontal cortex (associated with impulse control and rational decision-making), the left amygdala, thalamus, hippocampus, and the angular gyrus (linked to morality)."</em></div>
+
+      <div class="scaffold-label">Findings — brain areas with INCREASED activity in NGRIs</div>
+      <div class="scaffold-line"><em>"There was increased activity in the right amygdala, right thalamus, right hippocampus, and the cerebellum. There were no significant differences between NGRI and controls in areas linked to mental illness — differences were specific to regions associated with aggression and violence."</em></div>
+
+      <div class="scaffold-label">Conclusions (now switch to "concluded" / "suggested")</div>
+      <div class="scaffold-line"><em>"Raine concluded there is a meaningful link between brain dysfunction and a predisposition towards violence in NGRIs. However, he warned that the findings do not show violent behaviour is determined by biology alone — social and psychological factors also play important roles. He also noted that the brain differences observed could be an effect of violent behaviour rather than a cause, since causation cannot be established from this correlational study. Furthermore, the findings do not mean murderers are not responsible for their actions, and PET scans cannot diagnose murderers."</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AO1 THERAPY [10] ═══════════════════ -->
+<div id="page-ao1-therapy" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#7e22ce,#6d28d9);">
+    <h2>AO1 — Describe a Therapy [10 marks]</h2>
+    <p>Describe the main components of a therapy. No evaluation — depth AND range of components needed.</p>
+    <span class="qt-badge">~12 minutes</span>
+    <span class="qt-badge">AO1 only</span>
+    <span class="qt-badge">Choose ONE therapy</span>
+  </div>
+
+  <div class="alert alert-amber">⚠️ <strong>You choose ONE therapy.</strong> In 2024 Q6 students could choose CBT OR REBT. Pick the one you know better — both are worth equal marks. Don't try to cover both.</div>
+
+  <div class="grid2">
+    <div class="content-card">
+      <h3>What does the examiner want?</h3>
+      <p>Depth AND range of the therapy's components — how it works, the stages/techniques, the role of the therapist, the link to the approach's assumptions.</p>
+      <p>The mark scheme for Q6 (2024) credited: history of the therapy, link between assumptions and therapy, role of the therapist, specific techniques (e.g. dysfunctional thought diary, homework, cognitive restructuring), the ABC model (for REBT), the negative cognitive triad (for CBT).</p>
+    </div>
+    <div class="content-card">
+      <h3>Band descriptors</h3>
+      <table>
+        <thead><tr><th>Marks</th><th>What this looks like</th></tr></thead>
+        <tbody>
+          <tr><td><strong>9–10</strong></td><td>Thorough description. Depth and range. Effective terminology. Logical structure.</td></tr>
+          <tr><td><strong>6–8</strong></td><td>Reasonable description. Good terminology. Mostly logical.</td></tr>
+          <tr><td><strong>3–5</strong></td><td>Basic description. Some terminology. Reasonable structure.</td></tr>
+          <tr><td><strong>1–2</strong></td><td>Superficial. Little terminology. Lacks structure.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showInner('therapy-cbt',this)">CBT (Cognitive Behavioural Therapy)</button>
+    <button class="inner-tab" onclick="showInner('therapy-sd',this)">Systematic Desensitisation</button>
+    <button class="inner-tab" onclick="showInner('therapy-dream',this)">Dream Analysis</button>
+    <button class="inner-tab" onclick="showInner('therapy-mind',this)">Mindfulness</button>
+  </div>
+
+  <div id="inner-therapy-cbt" class="inner-panel active">
+    <div class="content-card">
+      <h3>CBT — Key components to describe</h3>
+      <div class="scaffold">
+        <div class="scaffold-label">1. Link to assumptions</div>
+        <div class="scaffold-line"><strong>How assumptions justify CBT:</strong> <em>"CBT is justified by the cognitive assumption that internal mental processes — particularly faulty schemas and negative automatic thoughts — cause emotional distress. If distorted thinking causes disorder, then challenging and changing that thinking should produce improvement."</em></div>
+        <div class="scaffold-label">2. Beck's negative cognitive triad</div>
+        <div class="scaffold-line"><em>"Beck proposed that depression is maintained by a negative cognitive triad — negative views of the self ('I am worthless'), the world ('Nothing works out') and the future ('Things will never improve'). CBT aims to challenge all three."</em></div>
+        <div class="scaffold-label">3. Dysfunctional thought diary</div>
+        <div class="scaffold-line"><em>"The client keeps a dysfunctional thought diary, recording negative automatic thoughts as they occur, along with the situations that trigger them. This makes unconscious thinking patterns visible and subject to challenge."</em></div>
+        <div class="scaffold-label">4. Cognitive restructuring</div>
+        <div class="scaffold-line"><em>"The therapist challenges negative automatic thoughts by examining the evidence for and against them, and helping the client replace irrational beliefs with more balanced, realistic ones."</em></div>
+        <div class="scaffold-label">5. Behavioural activation and homework</div>
+        <div class="scaffold-line"><em>"Clients are given homework tasks between sessions — scheduling positive activities, testing predictions about feared situations, and practising new thinking patterns in real life. This applies the learning beyond the therapy room."</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-therapy-sd" class="inner-panel">
+    <div class="content-card">
+      <h3>Systematic Desensitisation — Key components</h3>
+      <div class="scaffold">
+        <div class="scaffold-label">1. Link to conditioning assumptions</div>
+        <div class="scaffold-line"><em>"SD is justified by the classical conditioning assumption: if phobias are conditioned fear responses (CS → CR), then pairing the feared stimulus with an incompatible response (relaxation) should extinguish the fear through counter-conditioning."</em></div>
+        <div class="scaffold-label">2. Anxiety hierarchy</div>
+        <div class="scaffold-line"><em>"Client and therapist construct a ranked hierarchy of feared stimuli — from least to most frightening. For a spider phobia, this might begin with the word 'spider' and end with holding a live spider."</em></div>
+        <div class="scaffold-label">3. Relaxation training</div>
+        <div class="scaffold-line"><em>"The client learns a deep relaxation response — controlled breathing, progressive muscle relaxation — which is physiologically incompatible with anxiety. Anxiety and relaxation cannot coexist."</em></div>
+        <div class="scaffold-label">4. Gradual exposure / Counter-conditioning</div>
+        <div class="scaffold-line"><em>"The client works through the hierarchy, pairing each level with the relaxation response until no fear reaction remains. The CS (spider) now produces CR (relaxation) instead of CR (fear) — this is counter-conditioning."</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-therapy-dream" class="inner-panel">
+    <div class="content-card">
+      <h3>Dream Analysis — Key components</h3>
+      <div class="scaffold">
+        <div class="scaffold-label">1. Link to unconscious mind assumption</div>
+        <div class="scaffold-line"><em>"Dream analysis is justified by the psychodynamic assumption that the unconscious mind contains repressed conflicts driving behaviour. During sleep, the ego weakens, allowing unconscious material to surface — but it is disguised by defence mechanisms."</em></div>
+        <div class="scaffold-label">2. Manifest and latent content</div>
+        <div class="scaffold-line"><em>"The manifest content is what the dreamer actually remembers — the surface narrative. The latent content is the true unconscious meaning, disguised through mechanisms such as displacement (substituting one object for another), condensation (merging several images), and symbolism."</em></div>
+        <div class="scaffold-label">3. Free association</div>
+        <div class="scaffold-line"><em>"The therapist uses free association — asking the patient to say whatever comes to mind in response to dream elements — to decode the latent content from the manifest content."</em></div>
+        <div class="scaffold-label">4. Making the unconscious conscious</div>
+        <div class="scaffold-line"><em>"By bringing the unconscious material into conscious awareness, the patient can confront and resolve the underlying conflict, reducing the neurotic symptoms it causes."</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-therapy-mind" class="inner-panel">
+    <div class="content-card">
+      <h3>Mindfulness — Key components</h3>
+      <div class="scaffold">
+        <div class="scaffold-label">1. Link to positive approach assumptions</div>
+        <div class="scaffold-line"><em>"Mindfulness is justified by the positive approach assumptions: acknowledging free will means individuals can actively cultivate present-moment awareness; focusing on the good life means developing a non-judgemental, accepting relationship with experience."</em></div>
+        <div class="scaffold-label">2. Core practices</div>
+        <div class="scaffold-line"><em>"Core mindfulness practices include body scan meditation (systematic attention to bodily sensations), mindful breathing (sustained focus on the breath as anchor), and observing thoughts without judgement — noticing without engaging."</em></div>
+        <div class="scaffold-label">3. MBCT</div>
+        <div class="scaffold-line"><em>"Mindfulness-Based Cognitive Therapy (MBCT, Segal, Williams and Teasdale, 2002) combines mindfulness with cognitive techniques from CBT. It is NICE-recommended for prevention of depressive relapse in people who have experienced three or more depressive episodes."</em></div>
+        <div class="scaffold-label">4. Programme structure</div>
+        <div class="scaffold-line"><em>"A typical MBCT programme runs for 8 weeks, with weekly group sessions and daily home practice. Participants develop present-moment awareness and a different relationship to negative thoughts — seeing them as mental events rather than facts."</em></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AO3 EVALUATE [8/10] ═══════════════════ -->
+<div id="page-ao3-eval" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#0f766e,#0d9488);">
+    <h2>AO3 — Evaluate Strengths and Weaknesses [8 or 10 marks]</h2>
+    <p>Both strengths AND weaknesses needed to access 6+ marks. Use PEEL structure throughout.</p>
+    <span class="qt-badge">8 or 10 marks</span>
+    <span class="qt-badge">AO3 only</span>
+    <span class="qt-badge">Both sides essential</span>
+  </div>
+
+  <div class="alert alert-red">🚨 <strong>Critical rule from both Q2 and Q3 mark schemes:</strong> "Both strengths and weaknesses must be included to access the 6–10 mark range." A one-sided answer, however detailed, <strong>cannot score above 5 marks</strong>.</div>
+
+  <div class="grid2">
+    <div class="content-card">
+      <h3>What does the examiner want?</h3>
+      <p>Developed, evidence-backed evaluation points — not a list. Each point should be P-E-E-L: state it, support it with evidence, explain why it matters, link back to the question.</p>
+      <p>A <strong>conclusion</strong> is required for the top band. "On balance, the biological approach is [strong/limited] because..."</p>
+      <p>Points can be evaluated as either a strength OR weakness as long as they are justified — the mark scheme allows flexibility here.</p>
+    </div>
+    <div class="content-card">
+      <h3>Band descriptors — 10-mark evaluate (Q2, 2024)</h3>
+      <table>
+        <thead><tr><th>Marks</th><th>What this looks like</th></tr></thead>
+        <tbody>
+          <tr><td><strong>9–10</strong></td><td>Thorough evaluation. Well-chosen examples. Well-developed AND balanced. Logical structure. Appropriate conclusion based on evidence.</td></tr>
+          <tr><td><strong>6–8</strong></td><td>Reasonable evaluation. Appropriate examples. Developed. Mostly logical. Reasonable conclusion.</td></tr>
+          <tr><td><strong>3–5</strong></td><td>Basic evaluation. Examples not always relevant. Not developed. Reasonable structure. Basic conclusion. <strong>OR:</strong> thorough evaluation of ONE side only.</td></tr>
+          <tr><td><strong>1–2</strong></td><td>Superficial. No examples. No structure. No conclusion. <strong>OR:</strong> reasonable on ONE side only.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>The PEEL Paragraph — the essential tool for AO3</h3>
+    <div class="peel-block">
+      <div class="peel-letter" style="background:#166534;">P</div>
+      <div class="peel-content">
+        <div class="peel-name">Point</div>
+        <div class="peel-text">State your argument in one clear sentence. Name whether it is a strength or weakness.</div>
+        <div class="peel-starter">"A strength/weakness of the biological approach is..."</div>
+      </div>
+    </div>
+    <div class="peel-block">
+      <div class="peel-letter" style="background:#1d4ed8;">E</div>
+      <div class="peel-content">
+        <div class="peel-name">Evidence</div>
+        <div class="peel-text">Name a specific study, researcher, or piece of evidence. Include specific detail — not just "research shows".</div>
+        <div class="peel-starter">"Raine et al. (1997) used PET scanning to compare 41 NGRI murderers with 41 matched controls, finding reduced prefrontal cortex activity..."</div>
+      </div>
+    </div>
+    <div class="peel-block">
+      <div class="peel-letter" style="background:#0f766e;">E</div>
+      <div class="peel-content">
+        <div class="peel-name">Explain</div>
+        <div class="peel-text">Explain WHY this is a strength/weakness. What does the evidence mean? Why does it matter?</div>
+        <div class="peel-starter">"This is a strength because it demonstrates that psychological phenomena can be studied using objective, measurable methods, lending the approach scientific credibility..."</div>
+      </div>
+    </div>
+    <div class="peel-block">
+      <div class="peel-letter" style="background:#1e1b4b;">L</div>
+      <div class="peel-content">
+        <div class="peel-name">Link</div>
+        <div class="peel-text">Link back to the question. What does this point tell us about the approach/therapy overall?</div>
+        <div class="peel-starter">"Therefore the biological approach can be considered [scientific / reductionist / deterministic], which means..."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Model answer — Evaluate biological approach [10 marks, Q2 2024]</h3>
+    <button class="toggle-btn" style="background:#f0fdfa;color:#0f766e;border-color:#5eead4;" onclick="toggleBox(this,'bio-eval-model')">👁 Show model answer</button>
+    <div id="bio-eval-model" class="show-box" style="background:#f0fdfa;border:1px solid #5eead4;">
+      <div class="model-essay">
+        <p><span class="ao-marker ao3-m">STRENGTH</span>A significant strength of the biological approach is its use of objective, scientific methods. Raine et al. (1997) used PET scanning — a highly controlled neuroimaging technique — to compare brain activity in 41 NGRI murderers with 41 matched controls. The use of matched controls and a standardised task increases the internal validity of the findings. This is a strength because it demonstrates that psychological phenomena can be studied with measurable, replicable methods, helping to establish psychology as a scientific discipline.</p>
+        <p><span class="ao-marker ao3-m">STRENGTH</span>A further strength is the real-world applications the approach has generated. Understanding the role of neurotransmitters — particularly serotonin in depression and dopamine in schizophrenia — has led to the development of drug therapies such as SSRIs and antipsychotics. These treatments have allowed millions of people to manage mental illness and live more independently. Viguera et al. (2000) found that over 60% of bipolar patients improved with lithium, demonstrating the practical value of biologically-based treatments.</p>
+        <p><span class="ao-marker ao3-m">WEAKNESS</span>However, a major weakness is that the biological approach is reductionist, reducing complex human behaviour entirely to biological factors such as genes, brain structures and neurotransmitters. Explaining depression purely as "low serotonin" ignores the role of negative life events, cognitive patterns and social support. This is a weakness because it provides an incomplete account of behaviour and can lead to treatments — like drug therapy — that address symptoms without tackling underlying causes, contributing to the "revolving door syndrome" where patients relapse when medication is stopped.</p>
+        <p><span class="ao-marker ao3-m">WEAKNESS</span>The approach is also criticised for biological determinism — the idea that behaviour is fixed by biology, leaving no room for free will or individual agency. This raises serious ethical concerns: Raine et al.'s findings about murderers' brain differences could be used to argue that violent offenders are not responsible for their actions, which has significant implications for justice and punishment. Raine himself resisted this conclusion, acknowledging that social and psychological factors also contribute.</p>
+        <p>On balance, the biological approach has made genuine and valuable contributions through its scientific rigour and real-world applications. However, its reductionist and deterministic stance means it provides only a partial account of human behaviour, and it is most effectively used alongside other approaches that account for thoughts, environment and culture.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AO3 ETHICAL + SOCIAL [10] ═══════════════════ -->
+<div id="page-ao3-es" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#b45309,#d97706);">
+    <h2>AO3 — Evaluate Ethical Issues AND Social Implications [10 marks]</h2>
+    <p>BOTH ethical issues AND social implications must be included to access 6+ marks.</p>
+    <span class="qt-badge">10 marks</span>
+    <span class="qt-badge">AO3 only</span>
+    <span class="qt-badge">Both types required</span>
+  </div>
+
+  <div class="alert alert-red">🚨 <strong>From the real mark scheme Q7:</strong> "Both ethical issues and social implications must be included to access the 6–10 mark range." A thorough answer covering only ethical issues <strong>cannot score above 5/10</strong>.</div>
+
+  <div class="grid2">
+    <div class="content-card">
+      <h3>Ethical issues vs Social implications — the difference</h3>
+      <div style="background:#fef3c7;border-radius:8px;padding:14px;margin-bottom:10px;">
+        <strong style="color:#b45309;">⚖️ Ethical issues</strong>
+        <p style="font-size:13px;margin-top:6px;line-height:1.7;">Problems with HOW the research was conducted — consent, deception, harm, right to withdraw.</p>
+        <p style="font-size:12px;margin-top:6px;font-style:italic;color:#374151;">"Participants were deceived about the true aim of the study — informed consent was not fully obtained."</p>
+      </div>
+      <div style="background:#dbeafe;border-radius:8px;padding:14px;">
+        <strong style="color:#1d4ed8;">🌍 Social implications</strong>
+        <p style="font-size:13px;margin-top:6px;line-height:1.7;">What the research MEANS for society — criminal justice, policy, public understanding, real-world impact.</p>
+        <p style="font-size:12px;margin-top:6px;font-style:italic;color:#374151;">"The Innocence Project found approximately 70% of wrongful convictions involved mistaken EWT — demonstrating the devastating social cost of unreliable testimony."</p>
+      </div>
+    </div>
+    <div class="content-card">
+      <h3>Band descriptors (Q7, 2024 paper)</h3>
+      <table>
+        <thead><tr><th>Marks</th><th>What this looks like</th></tr></thead>
+        <tbody>
+          <tr><td><strong>9–10</strong></td><td>Thorough evaluation of BOTH. Well-chosen examples. Well-developed and balanced. Logical. Appropriate conclusion.</td></tr>
+          <tr><td><strong>6–8</strong></td><td>Reasonable evaluation of BOTH. Examples appropriate. Developed. Mostly logical. Reasonable conclusion.</td></tr>
+          <tr><td><strong>3–5</strong></td><td>Basic evaluation of BOTH — OR thorough of ONE type only.</td></tr>
+          <tr><td><strong>1–2</strong></td><td>Superficial — OR reasonable evaluation of ONE type only.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Scaffold — Loftus and Palmer (1974) Q7, 2024</h3>
+    <div class="alert alert-navy">📋 <strong>The real 2024 Q7:</strong> "Evaluate the ethical issues and social implications of Loftus and Palmer's (1974) research." [10]</div>
+    <div class="scaffold">
+      <div class="scaffold-label">Ethical Issue 1 — Deception</div>
+      <div class="scaffold-line"><em>"A key ethical issue is <strong>deception</strong>. Participants were not informed of the true aim of the study — that it was investigating how question wording alters memory. Therefore informed consent was not fully obtained. Although a debrief was provided, participants had still been led to form false memories without their knowledge. The BPS permits deception only where it does not cause harm and a full debrief is given — Loftus and Palmer satisfied the latter but the use of deception still raises concerns about autonomy."</em></div>
+
+      <div class="scaffold-label">Ethical Issue 2 — Potential harm / Right to withdraw</div>
+      <div class="scaffold-line"><em>"A further concern is <strong>potential harm</strong> from watching distressing accident footage. The use of film clips rather than real accidents reduced this risk, but participants may still have experienced some distress. There are also concerns about the <strong>right to withdraw</strong> — participants were student volunteers in an institutional setting, which may have created a power imbalance making it difficult to leave freely."</em></div>
+
+      <div class="scaffold-label">Social Implication 1 — Criminal justice / Cognitive Interview</div>
+      <div class="scaffold-line"><em>"A major social implication is the reform of police interviewing. The research directly contributed to the development of the <strong>Cognitive Interview</strong> (Geiselman et al., 1985) — now used by UK police forces — which produces more accurate and detailed recall. This is a positive social impact: justice is better served when evidence is more reliably obtained."</em></div>
+
+      <div class="scaffold-label">Social Implication 2 — Wrongful convictions / The Innocence Project</div>
+      <div class="scaffold-line"><em>"The most significant social implication is the role of unreliable EWT in wrongful convictions. The <strong>Innocence Project</strong> found that approximately 70% of wrongful convictions overturned by DNA evidence had involved mistaken eyewitness identification. These cases demonstrate the devastating human cost — innocent people imprisoned, real perpetrators free, families destroyed. As a result, EWT is now used alongside forensic evidence and CCTV rather than as the sole basis for conviction."</em></div>
+
+      <div class="scaffold-label">Conclusion</div>
+      <div class="scaffold-line"><em>"On balance, while Loftus and Palmer's research raised ethical concerns through deception, its social impact has been largely positive — improving interviewing practice, reforming how courts weigh EWT, and generating the evidence base for the Innocence Project's work."</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AO2 COMPARE [10] ═══════════════════ -->
+<div id="page-ao2-compare" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#dc2626,#b91c1c);">
+    <h2>AO2 — Compare and Contrast Two Approaches [10 marks]</h2>
+    <p>Apply knowledge to a scenario. EVERY point must explicitly reference the scenario. Generic answers score 1–2 marks maximum.</p>
+    <span class="qt-badge">10 marks</span>
+    <span class="qt-badge">AO2 only</span>
+    <span class="qt-badge">Scenario essential</span>
+  </div>
+
+  <div class="alert alert-red">🚨 <strong>Most common failure on this question:</strong> Writing general psychology about both approaches without referencing the specific scenario, person or context given in the question. Generic answers are capped at 1–2 marks by the mark scheme.</div>
+
+  <div class="grid2">
+    <div class="content-card">
+      <h3>What does the examiner want?</h3>
+      <p>Both <strong>similarities</strong> AND <strong>differences</strong> between the two approaches — discussed in the context of the specific scenario given.</p>
+      <p>The mark scheme credits: "Discussion of similarities and differences is thorough / reasonable / basic" — not "evaluation of each approach." This is about comparing them, not evaluating them individually.</p>
+    </div>
+    <div class="content-card">
+      <h3>Band descriptors (Q5, 2024 — Cog vs Positive)</h3>
+      <table>
+        <thead><tr><th>Marks</th><th>What this looks like</th></tr></thead>
+        <tbody>
+          <tr><td><strong>9–10</strong></td><td>Thorough discussion of similarities AND differences. Logical. Applied well to scenario throughout.</td></tr>
+          <tr><td><strong>6–8</strong></td><td>Reasonable discussion of both. Mostly applied. Mostly logical.</td></tr>
+          <tr><td><strong>3–5</strong></td><td>Basic discussion of both — OR thorough on ONE type (similarities or differences only).</td></tr>
+          <tr><td><strong>1–2</strong></td><td>Superficial — OR generic answer not linked to scenario.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Scaffold — Compare Cognitive and Positive approaches (Q5, 2024)</h3>
+    <div class="alert alert-navy">📋 <strong>The real 2024 Q5:</strong> A student asked whether to study cognitive or positive psychology at university. Discuss what Mr Haggerty (the teacher) may advise by comparing and contrasting the two approaches. [10]</div>
+    <div class="scaffold">
+      <div class="scaffold-label">Similarity 1 — both use scientific methods (link to scenario)</div>
+      <div class="scaffold-line"><em>"Mr Haggerty might begin by noting a key similarity: both the cognitive and positive approaches use scientific, empirical methods to study behaviour. The cognitive approach uses controlled laboratory experiments — as in Loftus and Palmer (1974) — while the positive approach uses large-scale surveys and meta-analyses, such as Myers and Diener's (1995) review of 170,000 people. For a student interested in rigorous research at university, both approaches offer credible scientific foundations."</em></div>
+
+      <div class="scaffold-label">Difference 1 — what they study (link to scenario)</div>
+      <div class="scaffold-line"><em>"However, the teacher might also note a fundamental difference in focus. The cognitive approach studies how faulty mental processes — such as negative schemas and cognitive distortions — cause disorder. The positive approach studies what makes people flourish — happiness, strengths and meaning. For the student deciding her future, Mr Haggerty might advise that if she is interested in clinical work or understanding why people become mentally ill, the cognitive approach is more relevant; if she is interested in wellbeing promotion, education or coaching, the positive approach would be a better fit."</em></div>
+
+      <div class="scaffold-label">Difference 2 — therapies / determinism (link to scenario)</div>
+      <div class="scaffold-line"><em>"A further difference concerns their therapies and view of free will. The cognitive approach's CBT involves soft determinism — acknowledging that thought patterns shape behaviour but can be changed through reflection. The positive approach explicitly assumes free will — Seligman argued people can actively choose to cultivate strengths. Mr Haggerty might advise that this philosophical difference matters for the student: does she believe people can truly choose their wellbeing, or are they influenced by prior cognitive patterns?"</em></div>
+
+      <div class="scaffold-label">Conclusion (link back to scenario)</div>
+      <div class="scaffold-line"><em>"Ultimately, Mr Haggerty might advise that neither approach is objectively better — both have produced NICE-recommended therapies (CBT and mindfulness). The student's choice should depend on whether her interests lie in understanding the causes of disorder (cognitive) or in promoting human flourishing (positive)."</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AO2 JUSTIFY THERAPY [10] ═══════════════════ -->
+<div id="page-ao2-justify" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#6d28d9,#7c3aed);">
+    <h2>AO2 — Justify a Therapy Using Approach Assumptions [10 marks]</h2>
+    <p>Explain WHY a psychologist from a specific approach would recommend a therapy. Link assumptions to therapy throughout.</p>
+    <span class="qt-badge">10 marks</span>
+    <span class="qt-badge">AO2 only</span>
+    <span class="qt-badge">Link assumptions → therapy</span>
+  </div>
+
+  <div class="alert alert-amber">⚠️ <strong>The key instruction:</strong> "Discuss why a psychologist from [X] approach would consider [Y] an appropriate therapy." The examiner wants you to explain the REASONING — why the approach's assumptions make this therapy logical. Not just what the therapy involves.</div>
+
+  <div class="grid2">
+    <div class="content-card">
+      <h3>What does the examiner want?</h3>
+      <p>For each component of the therapy, explicitly link it to a specific assumption of the approach. The word "because" should appear frequently.</p>
+      <p><em>"A psychologist from the psychodynamic approach would use dream analysis because the unconscious mind assumption suggests that..."</em></p>
+      <p>Research to justify the therapy's effectiveness can also be included to support the AO2 application.</p>
+    </div>
+    <div class="content-card">
+      <h3>Band descriptors (Q8, 2024)</h3>
+      <table>
+        <thead><tr><th>Marks</th><th>What this looks like</th></tr></thead>
+        <tbody>
+          <tr><td><strong>9–10</strong></td><td>Discussion and application thorough. Exemplars well chosen. Depth and range. Logical structure.</td></tr>
+          <tr><td><strong>6–8</strong></td><td>Reasonable discussion and application. Appropriate exemplars. Mostly logical.</td></tr>
+          <tr><td><strong>3–5</strong></td><td>Basic discussion and application. Exemplars not always made relevant. Reasonable structure.</td></tr>
+          <tr><td><strong>1–2</strong></td><td>Superficial. Exemplars identified but not made relevant.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3>Scaffold — Q8, 2024: Why would a psychodynamic psychologist use dream analysis?</h3>
+    <div class="alert alert-navy">📋 <strong>The real 2024 Q8:</strong> "Discuss why a psychologist from the psychodynamic approach would consider dream analysis OR psychodrama as an appropriate therapy." [10]</div>
+    <div class="scaffold">
+      <div class="scaffold-label">Assumption 1 → Therapy link</div>
+      <div class="scaffold-line"><em>"A psychologist from the psychodynamic approach would use dream analysis because the <strong>unconscious mind assumption</strong> holds that repressed conflicts and unacceptable desires — invisible to conscious awareness — drive neurotic behaviour. During sleep, the ego weakens and the id strengthens, meaning these unconscious contents can surface. Dream analysis provides access to this material that no other method can reach."</em></div>
+
+      <div class="scaffold-label">Assumption 2 → Therapy link (defence mechanisms)</div>
+      <div class="scaffold-line"><em>"The approach also assumes that the mind uses <strong>defence mechanisms</strong> (displacement, condensation, symbolism) to disguise unconscious material — which is why the latent content of a dream is hidden within the manifest content. Dream analysis is therefore necessary because the unconscious does not simply reveal itself directly. The therapist's role is to decode the symbolism through free association."</em></div>
+
+      <div class="scaffold-label">Assumption 3 → Therapy link (childhood experiences)</div>
+      <div class="scaffold-line"><em>"Furthermore, because the psychodynamic approach assumes that unresolved childhood experiences cause adult neurosis, dream analysis provides a route to those buried early memories. By helping the patient bring the unconscious conflict into conscious awareness — what Freud called 'making the unconscious conscious' — the therapy allows the conflict to be resolved rather than merely suppressed."</em></div>
+
+      <div class="scaffold-label">Evidence to justify</div>
+      <div class="scaffold-line"><em>"A psychodynamic psychologist might also point to Freud's own case studies — including Little Hans and Anna O — as evidence that uncovering unconscious material through dream analysis and free association can produce significant improvements in neurotic symptoms, justifying the use of this therapy."</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 24-MARK ESSAY ═══════════════════ -->
+<div id="page-debate24" class="page">
+  <div class="qt-header" style="background:linear-gradient(135deg,#991b1b,#b91c1c);">
+    <h2>24-Mark Contemporary Debate Essay</h2>
+    <p>12 AO1 (knowledge of both sides) + 12 AO3 (evaluation: ethical, social, economic). Evidence-based conclusion. ~28 minutes.</p>
+    <span class="qt-badge">24 marks</span>
+    <span class="qt-badge">AO1 (12) + AO3 (12)</span>
+    <span class="qt-badge">Both sides required</span>
+    <span class="qt-badge">ESE framework</span>
+  </div>
+
+  <div class="inner-tabs">
+    <button class="inner-tab active" onclick="showInner('d24-overview',this)">Overview</button>
+    <button class="inner-tab" onclick="showInner('d24-structure',this)">Essay Structure</button>
+    <button class="inner-tab" onclick="showInner('d24-ese',this)">ESE Framework</button>
+    <button class="inner-tab" onclick="showInner('d24-bands',this)">Band Descriptors</button>
+    <button class="inner-tab" onclick="showInner('d24-model',this)">Model Plan + Intro</button>
+  </div>
+
+  <div id="inner-d24-overview" class="inner-panel active">
+    <div class="grid2">
+      <div class="content-card">
+        <h3>What makes a top-band 24-marker?</h3>
+        <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Both sides of the debate</strong> — arguments FOR and AGAINST the statement. AO1 knowledge of both positions. Cannot reach top band covering one side only.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Ethical, Social AND Economic</strong> perspectives in your AO3. Use the ESE framework. All three are needed for top band evaluation.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Evidence throughout</strong> — name specific researchers, studies and statistics. "Research shows..." without a name gains low marks.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Clear conclusion</strong> — "On balance, I largely agree/disagree because..." Take a position. Do not simply say "there are arguments on both sides."</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-body"><strong>Cultural diversity</strong> — consider whether findings apply across cultures. At least one sentence mentioning cross-cultural considerations pushes AO3 to top band.</div></div>
+      </div>
+      <div>
+        <div class="alert alert-red" style="margin-bottom:10px;">🚨 <strong>AO3 from the real mark scheme:</strong> "Thorough discussion of BOTH sides of the debate. Evaluative comments evidently relevant to the context. Structure logical throughout. Appropriate conclusion based on analysing evidence." — This is what 10–12 AO3 looks like.</div>
+        <div class="content-card">
+          <h3>Timing breakdown</h3>
+          <div class="step"><div class="step-num" style="background:#b45309;">5</div><div class="step-body"><strong>minutes planning</strong> — mini-plan: both sides, 4 PEEL points, conclusion position</div></div>
+          <div class="step"><div class="step-num" style="background:#166534;">23</div><div class="step-body"><strong>minutes writing</strong> — intro + 4-5 paragraphs + conclusion</div></div>
+          <div class="alert alert-amber" style="margin-top:8px;">⏱ At 1.2 minutes per mark, Q9 needs 28-30 minutes. If you start Q9 with less than 25 minutes left, you will not do it justice.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-d24-structure" class="inner-panel">
+    <div class="content-card">
+      <h3>Essay Structure — paragraph by paragraph</h3>
+      <div class="peel-block" style="margin-bottom:10px;">
+        <div class="peel-letter" style="background:#4338ca;font-size:16px;">INTRO</div>
+        <div class="peel-content">
+          <div class="peel-name">Introduction (~3-4 sentences)</div>
+          <div class="peel-text">State what the debate is about. Give your overall position. Briefly mention the key evidence you will use.</div>
+          <div class="peel-starter">"[State the debate]. I largely [agree/disagree] with the statement because [brief reason]. However, [acknowledge other side], which means the question requires careful consideration."</div>
+        </div>
+      </div>
+      <div class="peel-block" style="margin-bottom:10px;">
+        <div class="peel-letter" style="background:#166534;font-size:14px;">AO1 FOR</div>
+        <div class="peel-content">
+          <div class="peel-name">Paragraph 1 — Knowledge supporting the statement</div>
+          <div class="peel-text">Evidence, research and arguments that support the view expressed in the statement. Name specific researchers and studies.</div>
+          <div class="peel-starter">"One argument that supports the statement is... [researcher/study] found that... This supports the statement because..."</div>
+        </div>
+      </div>
+      <div class="peel-block" style="margin-bottom:10px;">
+        <div class="peel-letter" style="background:#0f766e;font-size:14px;">AO3 + ⚖️</div>
+        <div class="peel-content">
+          <div class="peel-name">Paragraph 2 — Ethical evaluation</div>
+          <div class="peel-text">Evaluate using an ethical perspective. Use an ethical principle (autonomy, beneficence, non-maleficence, consent).</div>
+          <div class="peel-starter">"Ethically, [the statement/this position] raises concerns about [principle] because..."  |  "This is ethically justifiable because it upholds [principle] by..."</div>
+        </div>
+      </div>
+      <div class="peel-block" style="margin-bottom:10px;">
+        <div class="peel-letter" style="background:#b45309;font-size:14px;">AO1+AO3 AGAINST</div>
+        <div class="peel-content">
+          <div class="peel-name">Paragraph 3 — Knowledge challenging + Social evaluation</div>
+          <div class="peel-text">Evidence that challenges the statement, combined with a social perspective on the implications.</div>
+          <div class="peel-starter">"However, [researcher] challenges the statement by... Socially, this has implications for [group/institution/policy] because..."</div>
+        </div>
+      </div>
+      <div class="peel-block" style="margin-bottom:10px;">
+        <div class="peel-letter" style="background:#1d4ed8;font-size:14px;">AO3 + 💰</div>
+        <div class="peel-content">
+          <div class="peel-name">Paragraph 4 — Economic evaluation</div>
+          <div class="peel-text">Economic perspective — costs, access, funding, inequality, savings to the NHS or criminal justice system.</div>
+          <div class="peel-starter">"Economically, [the statement] has implications for... because... The financial cost of [X] means that..."</div>
+        </div>
+      </div>
+      <div class="peel-block">
+        <div class="peel-letter" style="background:#1e1b4b;font-size:14px;">CONC</div>
+        <div class="peel-content">
+          <div class="peel-name">Conclusion (~3-4 sentences)</div>
+          <div class="peel-text">Take a clear overall position based on the evidence. Acknowledge the complexity but reach a verdict.</div>
+          <div class="peel-starter">"On balance, I largely [agree/disagree] with the statement. The evidence from [X] demonstrates [Y]. However, [counter-argument] means the position must be qualified. Overall, [final verdict] because [key reason]."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-d24-ese" class="inner-panel">
+    <div class="content-card">
+      <h3>The ESE Framework — Ethical · Social · Economic</h3>
+      <p style="font-size:13px;color:#374151;margin-bottom:16px;">All three perspectives should appear in your AO3 evaluation. Use these sentence starters to structure each evaluative paragraph.</p>
+    </div>
+    <div class="grid3">
+      <div class="content-card" style="border-top:4px solid #1e1b4b;">
+        <h3 style="color:#1e1b4b;">⚖️ Ethical</h3>
+        <p>Key principles: autonomy, informed consent, beneficence (doing good), non-maleficence (doing no harm), justice.</p>
+        <div style="background:#e0e7ff;border-radius:6px;padding:10px;margin-top:10px;font-size:12px;font-style:italic;color:#1e1b4b;">"Ethically, this raises concerns about <strong>autonomy</strong> because..."<br><br>"This violates the principle of <strong>non-maleficence</strong> because it causes harm to..."<br><br>"From an ethical standpoint, this is justifiable because it upholds <strong>beneficence</strong> by..."</div>
+      </div>
+      <div class="content-card" style="border-top:4px solid #0f766e;">
+        <h3 style="color:#0f766e;">🌍 Social</h3>
+        <p>Consider: impact on specific groups, policy implications, inequality, criminal justice, cultural diversity, stereotyping.</p>
+        <div style="background:#f0fdfa;border-radius:6px;padding:10px;margin-top:10px;font-size:12px;font-style:italic;color:#0f766e;">"Socially, this has significant implications because it could lead to..."<br><br>"This raises social concerns about <strong>inequality</strong> because..."<br><br>"From a social perspective, this challenges the traditional view that... meaning..."<br><br>"Cultural diversity must also be considered — in collectivist cultures..."</div>
+      </div>
+      <div class="content-card" style="border-top:4px solid #b45309;">
+        <h3 style="color:#b45309;">💰 Economic</h3>
+        <p>Consider: NHS costs, cost of wrongful convictions, childcare costs, productivity, access to expensive treatments.</p>
+        <div style="background:#fef3c7;border-radius:6px;padding:10px;margin-top:10px;font-size:12px;font-style:italic;color:#b45309;">"Economically, this is significant because the cost of [X] is estimated at..."<br><br>"The economic concern is that only those who can afford... will benefit, meaning..."<br><br>"Economically, investing in [X] is cost-effective because it reduces the long-term burden on..."</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-d24-bands" class="inner-panel">
+    <div class="grid2">
+      <div class="content-card">
+        <h3>AO1 Band Descriptors (12 marks)</h3>
+        <table>
+          <thead><tr><th>AO1 Marks</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><strong>10–12</strong></td><td>Description thorough. Exemplars well chosen. Depth and range. Effective use of terminology throughout.</td></tr>
+            <tr><td><strong>7–9</strong></td><td>Description reasonable. Exemplars appropriate. Depth and range (not in equal measure). Good terminology.</td></tr>
+            <tr><td><strong>4–6</strong></td><td>Description basic. Exemplars may not always be appropriate. Depth or range only. Some terminology.</td></tr>
+            <tr><td><strong>1–3</strong></td><td>Description superficial. Exemplars not relevant. Very little terminology.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="content-card">
+        <h3>AO3 Band Descriptors (12 marks)</h3>
+        <table>
+          <thead><tr><th>AO3 Marks</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><strong>10–12</strong></td><td>Thorough discussion of BOTH sides. Evaluative comments relevant to context. Logical structure. Appropriate conclusion based on evidence.</td></tr>
+            <tr><td><strong>7–9</strong></td><td>Reasonable discussion of both sides. Some relevance to context. Mostly logical. Reasonable conclusion.</td></tr>
+            <tr><td><strong>4–6</strong></td><td>Basic discussion of BOTH sides — OR reasonable discussion of ONE side only. Generic, not contextualised. Basic conclusion.</td></tr>
+            <tr><td><strong>1–3</strong></td><td>Superficial discussion. No structure. No conclusion.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="alert alert-amber">💡 <strong>The AO split matters:</strong> You get two separate marks — one for AO1 (knowledge) and one for AO3 (evaluation). You can get 10 AO1 and 6 AO3 = 16/24, or 6 AO1 and 10 AO3 = 16/24. Aim to distribute your time roughly equally between knowledge and evaluation.</div>
+  </div>
+
+  <div id="inner-d24-model" class="inner-panel">
+    <div class="content-card">
+      <h3>Model plan — Q9, 2024: "It is not essential that the mother is the primary caregiver of an infant." Discuss.</h3>
+      <div class="scaffold">
+        <div class="scaffold-label">My position (decide before writing)</div>
+        <div class="scaffold-line"><em>I largely <strong>disagree</strong> — the evidence does not support the idea that the mother specifically is essential, though early secure attachment is.</em></div>
+
+        <div class="scaffold-label">AO1 FOR the statement (mother IS essential)</div>
+        <div class="scaffold-line"><em>• Bowlby (1944) — 44 thieves, 86% affectionless psychopaths had maternal separation<br>• Monotropy — one primary qualitatively unique attachment, usually mother<br>• Internal working model — template for all future relationships<br>• Biological: oxytocin release; NHS breastfeeding guidance</em></div>
+
+        <div class="scaffold-label">AO1 AGAINST the statement (mother NOT essential)</div>
+        <div class="scaffold-line"><em>• Rutter (1981) — privation vs deprivation; Czech twins recovered<br>• Schaffer &amp; Emerson (1964) — 29% primary attachment not the mother; multiple attachments<br>• Lamb (1997) — fathers equally effective as primary caregivers<br>• Cross-cultural: kibbutzim; Tronick et al. Efe people</em></div>
+
+        <div class="scaffold-label">AO3 — Ethical</div>
+        <div class="scaffold-line"><em>The statement is ethically problematic because it restricts women's autonomy and ignores gender equality. It places the burden of childcare on women — Ann Oakley argued Bowlby's theory was used post-war to push women out of the workforce.</em></div>
+
+        <div class="scaffold-label">AO3 — Social</div>
+        <div class="scaffold-line"><em>Socially, the statement excludes same-sex couples and adoptive families. NICHD (2003) — high-quality day care produces equivalent outcomes. Cultural diversity: communal caregiving in Efe and kibbutzim challenges the Western assumption.</em></div>
+
+        <div class="scaffold-label">AO3 — Economic</div>
+        <div class="scaffold-line"><em>Economically, insisting on maternal care removes millions of women from the workforce, reducing GDP, tax revenue and household income. UK childcare costs among highest in developed world — economic case for quality shared care.</em></div>
+
+        <div class="scaffold-label">Conclusion</div>
+        <div class="scaffold-line"><em>"On balance, I largely disagree. Bowlby was right that early secure attachment is essential, but the weight of evidence — Rutter, Schaffer &amp; Emerson, and cross-cultural research — shows the caregiver does not need to be the biological mother. What infants need is a sensitive, responsive and consistent caregiver, regardless of gender or biological relationship."</em></div>
+      </div>
+
+      <button class="toggle-btn" style="background:#fef2f2;color:#991b1b;border-color:#fca5a5;" onclick="toggleBox(this,'d24-intro-model')">✅ Show model introduction paragraph</button>
+      <div id="d24-intro-model" class="show-box" style="background:#fef2f2;border:1px solid #fca5a5;color:#374151;">
+        <div class="model-essay">
+          <p>Bowlby's attachment theory and his concept of monotropy propose that infants form one primary, uniquely important bond — typically with the mother — during a critical period, and that disrupting this causes lasting emotional damage. I largely disagree with the statement that the mother must be the primary caregiver. While early secure attachment is undeniably important, the evidence suggests it is the quality and consistency of caregiving that matters, not the identity of the caregiver. There are also strong ethical, social and economic reasons to challenge the statement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showInner(id, btn) {
+  const page = btn.closest('.page');
+  page.querySelectorAll('.inner-panel').forEach(p => p.classList.remove('active'));
+  page.querySelectorAll('.inner-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('inner-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleBox(btn, id) {
+  const box = document.getElementById(id);
+  if (!box) return;
+  if (box.classList.contains('open')) {
+    box.classList.remove('open');
+    btn.textContent = btn.textContent.replace('Hide', btn.textContent.includes('mark') ? 'View mark' : 'Show');
+  } else {
+    box.classList.add('open');
+    btn.textContent = btn.textContent.replace('View', 'Hide').replace('Show', 'Hide');
+  }
+}
+</script>
+
+<!-- ═══════════════════ HEATMAP PAGE ═══════════════════ -->
+<div id="page-heatmap" class="page">
+  <h2 class="section-title">Topic Frequency Heatmap — 2017 to 2025</h2>
+  <p class="section-sub">Based on every Eduqas Component 1 paper sat between 2017 and 2025 (8 papers — no exam in 2020). Use this to prioritise revision and identify high-frequency topics.</p>
+
+  <div class="grid3" style="margin-bottom:20px;">
+    <div style="background:#dcfce7;border-radius:10px;padding:14px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Highest frequency</div>
+      <div style="font-size:28px;font-weight:700;color:#166534;font-family:'Playfair Display',serif;">8/8</div>
+      <div style="font-size:12px;color:#374151;margin-top:2px;">AO2 scenario questions — appeared in every single paper for Bio, Beh and Positive</div>
+    </div>
+    <div style="background:#fef3c7;border-radius:10px;padding:14px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:#b45309;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Watch out for</div>
+      <div style="font-size:28px;font-weight:700;color:#b45309;font-family:'Playfair Display',serif;">Debate</div>
+      <div style="font-size:12px;color:#374151;margin-top:2px;">Mother as PCG appeared 3× — most likely to repeat. EWT reliability appeared twice (2019, 2025).</div>
+    </div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">2026 top picks</div>
+      <div style="font-size:28px;font-weight:700;color:#1d4ed8;font-family:'Playfair Display',serif;">Beh + Bio</div>
+      <div style="font-size:12px;color:#374151;margin-top:2px;">HIGH confidence: Raine et al. describe, Positive AO2 scenario, Biological AO2. All absent from 2026.</div>
+    </div>
+  </div>
+
+  <div class="inner-tabs" style="flex-wrap:wrap;">
+    <button class="inner-tab active" onclick="showInner('hm-bio',this)">🧬 Biological</button>
+    <button class="inner-tab" onclick="showInner('hm-psy',this)">🌙 Psychodynamic</button>
+    <button class="inner-tab" onclick="showInner('hm-beh',this)">🔔 Behaviourist</button>
+    <button class="inner-tab" onclick="showInner('hm-cog',this)">🧠 Cognitive</button>
+    <button class="inner-tab" onclick="showInner('hm-pos',this)">🌱 Positive</button>
+    <button class="inner-tab" onclick="showInner('hm-debate',this)">📋 Debates</button>
+    <button class="inner-tab" onclick="showInner('hm-predict',this)">🔮 2027 Predictions</button>
+  </div>
+
+  <!-- BIO -->
+  <div id="inner-hm-bio" class="inner-panel active">
+    <div class="content-card">
+      <h3 style="color:#166534;">🧬 Biological Approach — Question Frequency (2017–2025)</h3>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">8 papers sat. Colour = frequency band.</p>
+      <div id="bio-bars"></div>
+      <div class="alert alert-red" style="margin-top:16px;">⚠️ <strong>Examiner warning:</strong> Raine et al. findings are frequently confused — left/right hemisphere, which group showed which result. Read the original study carefully. Reduced activity left; increased activity right — NOT the same for both sides.</div>
+      <div class="alert alert-amber" style="margin-top:8px;">⚠️ <strong>Examiner warning:</strong> Drug therapy effectiveness questions must address <em>effectiveness</em> not ethics. Many students write about ethical concerns when asked to evaluate effectiveness — these score zero for that command word.</div>
+      <div class="alert alert-green" style="margin-top:8px;">✓ <strong>Examiner note:</strong> AO2 application questions appear virtually every year. Always link explicitly to the stimulus / scenario details given — not just general approach knowledge.</div>
+    </div>
+  </div>
+
+  <!-- PSYCHODYNAMIC -->
+  <div id="inner-hm-psy" class="inner-panel">
+    <div class="content-card">
+      <h3 style="color:#7e22ce;">🌙 Psychodynamic Approach — Question Frequency (2017–2025)</h3>
+      <div id="psy-bars"></div>
+      <div class="alert alert-red" style="margin-top:16px;">⚠️ <strong>Examiner warning (2024 Q8):</strong> When asked WHY a therapy would be used, do not write a model essay describing the therapy. The question asks for the REASON it fits the psychodynamic approach — link each component back to an assumption.</div>
+      <div class="alert alert-amber" style="margin-top:8px;">⚠️ <strong>Examiner warning:</strong> Tripartite personality questions require the ID/Ego/Superego to be linked to the <em>specific behaviour</em> asked about — not generic Freudian theory detached from context.</div>
+      <div class="alert alert-green" style="margin-top:8px;">✓ Bowlby evaluate questions reward two-sided argument. Longitudinal design, cultural bias, researcher bias and maternal deprivation critique are all creditworthy evaluation points.</div>
+    </div>
+  </div>
+
+  <!-- BEHAVIOURIST -->
+  <div id="inner-hm-beh" class="inner-panel">
+    <div class="content-card">
+      <h3 style="color:#92400e;">🔔 Behaviourist Approach — Question Frequency (2017–2025)</h3>
+      <div id="beh-bars"></div>
+      <div class="alert alert-green" style="margin-top:16px;">✓ <strong>Examiner note:</strong> Systematic desensitisation effectiveness appears frequently (4×). Prepare both supporting research (Capafons et al., 1998 — aerophobia) AND contradicting research (Bregman, 1934 — biological preparedness). Both sides needed for top band.</div>
+      <div class="alert alert-green" style="margin-top:8px;">✓ AO2 scenario questions appear for every approach every year. Watson &amp; Rayner (1920) is a highly reliable source of evidence to apply — always state UCS, UCR, CS, CR explicitly.</div>
+    </div>
+  </div>
+
+  <!-- COGNITIVE -->
+  <div id="inner-hm-cog" class="inner-panel">
+    <div class="content-card">
+      <h3 style="color:#1d4ed8;">🧠 Cognitive Approach — Question Frequency (2017–2025)</h3>
+      <div id="cog-bars"></div>
+      <div class="alert alert-amber" style="margin-top:16px;">⚠️ <strong>Examiner warning:</strong> CBT effectiveness questions must not drift into ethical issues with CBT. The command word is effectiveness — focus on outcome research (NICE recommendations, relapse rates, dropout rates) not ethical concerns about the therapy.</div>
+      <div class="alert alert-green" style="margin-top:8px;">✓ Loftus &amp; Palmer describes are high frequency (5×). Always give both experiments with specific statistics: Exp 1 (40.8 mph smashed vs 31.8 contacted) and Exp 2 (32% vs 14% broken glass).</div>
+    </div>
+  </div>
+
+  <!-- POSITIVE -->
+  <div id="inner-hm-pos" class="inner-panel">
+    <div class="content-card">
+      <h3 style="color:#0f766e;">🌱 Positive Approach — Question Frequency (2017–2025)</h3>
+      <div id="pos-bars"></div>
+      <div class="alert alert-amber" style="margin-top:16px;">⚠️ <strong>Examiner warning:</strong> Myers and Diener (1995) is a <em>literature review / meta-analysis</em> — not original research that they conducted themselves. Do not write "Myers and Diener found in their experiment..." They reviewed existing studies.</div>
+      <div class="alert alert-green" style="margin-top:8px;">✓ AO2 scenario questions appear for the positive approach in virtually every paper (8×). Always connect Seligman's focus on flourishing / strengths / free will to the scenario given.</div>
+      <div class="alert alert-amber" style="margin-top:8px;">⚠️ Mindfulness effectiveness is becoming more frequent (3×). Include NICE recommendation for depressive relapse prevention as a strength — this is from the mark scheme.</div>
+    </div>
+  </div>
+
+  <!-- DEBATES -->
+  <div id="inner-hm-debate" class="inner-panel">
+    <div class="content-card">
+      <h3>📋 Contemporary Debate — Which Topic Has Appeared When (2017–2025)</h3>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">Q9 is always a 24-mark contemporary debate essay. One topic per year. Knowing the rotation helps focus revision.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Debate Topic</th>
+            <th>Approach</th>
+            <th>2017</th><th>2018</th><th>2019</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mother as primary caregiver</strong></td>
+            <td><span class="chip chip-navy">Psychodynamic</span></td>
+            <td style="background:#dcfce7;text-align:center;font-weight:700;color:#166534;">✓</td>
+            <td style="background:#dcfce7;text-align:center;font-weight:700;color:#166534;">✓</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#dcfce7;text-align:center;font-weight:700;color:#166534;">✓</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td><strong style="color:#166534;">3×</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Reliability of eyewitness testimony</strong></td>
+            <td><span class="chip chip-blue">Cognitive</span></td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#dbeafe;text-align:center;font-weight:700;color:#1d4ed8;">✓</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#dbeafe;text-align:center;font-weight:700;color:#1d4ed8;">✓</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#dbeafe;text-align:center;font-weight:700;color:#1d4ed8;">✓</td>
+            <td><strong style="color:#1d4ed8;">3×</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Happiness / subjective wellbeing</strong></td>
+            <td><span class="chip" style="background:#ccfbf1;color:#0f766e;">Positive</span></td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f0fdfa;text-align:center;font-weight:700;color:#0f766e;">✓</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td>1×</td>
+          </tr>
+          <tr>
+            <td><strong>Corporal punishment / aggression</strong></td>
+            <td><span class="chip" style="background:#fef3c7;color:#92400e;">Behaviourist</span></td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#fef3c7;text-align:center;font-weight:700;color:#92400e;">✓</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td>1×</td>
+          </tr>
+          <tr>
+            <td><strong>Free will vs determinism in psychology</strong></td>
+            <td><span class="chip chip-navy">All approaches</span></td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#e0e7ff;text-align:center;font-weight:700;color:#1e1b4b;">✓</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td style="background:#f9fafb;text-align:center;color:#9ca3af;">—</td>
+            <td>1×</td>
+          </tr>
+          <tr style="background:#fef3c7;">
+            <td colspan="10" style="font-size:12px;color:#92400e;padding:10px 14px;">
+              <strong>⚠️ Examiner reports confirm:</strong> EWT appeared in 2019, 2022 AND 2025 — 3× total, most frequent debate. Mother as PCG also 3× (2017, 2018, 2024). Conditioning children confirmed 2023. Happiness 2021. 2022 was EWT not corporal punishment as previously recorded in heatmap.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-amber">
+        💡 <strong>Debate rotation — updated from examiner reports:</strong> EWT reliability has now appeared 3× (2019, 2022, 2025) — most frequent debate. Mother as PCG also 3× (2017, 2018, 2024). Conditioning children appeared in 2023. Happiness in 2021. Ethics of Neuroscience has NEVER appeared as Q9 — most overdue topic. 2026 Q9 unknown. 2027 prediction: Ethics of Neuroscience or Happiness/wellbeing (appeared only once in 2021, now overdue).
+      </div>
+    </div>
+  </div>
+
+  <!-- PREDICTIONS -->
+  <div id="inner-hm-predict" class="inner-panel">
+    <div class="content-card">
+      <h3>🔮 2027 Predictions — Updated After 2026 Paper</h3>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">Updated using 2026 paper data. Topics that appeared in 2026 are unlikely to repeat immediately. Topics overdue or absent from 2026 are prioritised.</p>
+      <div class="alert alert-amber" style="margin-bottom:12px;">⚠️ <strong>2026 was behaviourist-heavy</strong> — three questions on the behaviourist approach (Q1b, Q5, Q7). Expect lighter coverage of behaviourist in 2027. Biological AO2 and Positive approach were notably absent from 2026 — both highly likely for 2027.</div>
+    </div>
+    <div id="predictions-grid"></div>
+    <div class="alert alert-red" style="margin-top:4px;">❗ <strong>Important:</strong> These are predictions based on past patterns, not guaranteed topics. Eduqas examiners vary topics across years. Use this to prioritise, not to gamble. All topics must be revised.</div>
+  </div>
+</div>
+
+<style>
+.freq-bar-wrap { margin-bottom: 10px; }
+.freq-bar-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+.freq-bar-topic { font-size: 13px; color: #1f2937; font-weight: 600; }
+.freq-bar-meta { display: flex; gap: 8px; align-items: center; }
+.freq-bar-count { font-size: 13px; font-weight: 700; }
+.freq-bar-track { background: #f3f4f6; border-radius: 6px; height: 10px; width: 100%; }
+.freq-bar-fill { height: 10px; border-radius: 6px; transition: width 0.3s; }
+.pred-card { background: white; border-radius: 12px; padding: 16px; border: 1px solid #e5e7eb; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+.pred-card .pred-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.pred-card .pred-title { font-size: 15px; font-weight: 700; color: #1e1b4b; }
+.pred-card .pred-conf { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
+.pred-card .pred-q { font-size: 13px; color: #374151; margin-bottom: 6px; }
+.pred-card .pred-revise { font-size: 12px; color: #6b7280; font-style: italic; }
+.pred-card .pred-risk { font-size: 12px; color: #991b1b; background: #fef2f2; padding: 6px 10px; border-radius: 6px; margin-top: 8px; }
+</style>
+
+<script>
+// ── FREQUENCY DATA ────────────────────────────────────────────────────────
+const freqData = {
+  bio: {
+    color: '#166534', bg: '#dcfce7',
+    topics: [
+      { name: 'AO2 apply scenario', ao: 'AO2', count: 8, max: 9, note: 'Not in 2026 — overdue' },
+      { name: 'Raine et al. (1997) — describe', ao: 'AO1', count: 7, max: 9, note: 'Not in 2026 — highly overdue' },
+      { name: 'Assumptions (describe/outline)', ao: 'AO1', count: 7, max: 9, note: 'Not in 2026' },
+      { name: 'Drug therapy — describe (incl. 2026 Q3a)', ao: 'AO1', count: 6, max: 9, note: 'Appeared 2026 Q3a' },
+      { name: 'Drug therapy — ethical issues / evaluate', ao: 'AO3', count: 3, max: 9, note: 'Appeared 2026 Q3b' },
+      { name: 'Psychosurgery — describe', ao: 'AO1', count: 3, max: 9 },
+      { name: 'Assumptions (evaluate/discuss)', ao: 'AO3', count: 2, max: 9 },
+      { name: 'Raine et al. (1997) — evaluate', ao: 'AO3', count: 2, max: 9, note: 'Not in 2026 — overdue' },
+    ]
+  },
+  psy: {
+    color: '#7e22ce', bg: '#f5f3ff',
+    topics: [
+      { name: 'AO2 apply scenario / assumption to behaviour', ao: 'AO2', count: 9, max: 9, note: 'Appeared 2026 Q6 (unconscious mind)' },
+      { name: 'Assumptions — describe/outline', ao: 'AO1', count: 5, max: 9, note: 'Not in 2026' },
+      { name: 'Tripartite personality / Id–Ego–Superego', ao: 'AO1', count: 5, max: 9, note: 'Not in 2026' },
+      { name: 'Dream analysis — describe', ao: 'AO1', count: 5, max: 9, note: 'Not in 2026 — overdue' },
+      { name: 'Bowlby (1944) — describe findings', ao: 'AO1', count: 4, max: 9, note: 'Not in 2026' },
+      { name: 'Bowlby (1944) — evaluate', ao: 'AO3', count: 4, max: 9, note: 'Appeared 2026 Q2 (12 marks)' },
+      { name: 'Psychodynamic therapies — evaluate/why used', ao: 'AO3', count: 2, max: 9 },
+      { name: 'Group analysis therapy — describe', ao: 'AO1', count: 1, max: 9 },
+    ]
+  },
+  beh: {
+    color: '#92400e', bg: '#fef3c7',
+    topics: [
+      { name: 'AO2 apply scenario', ao: 'AO2', count: 7, max: 9, note: 'Not in 2026 — overdue' },
+      { name: 'Classical conditioning — describe', ao: 'AO1', count: 6, max: 9, note: 'Not in 2026' },
+      { name: 'Assumptions — describe/outline (incl. 2026 Q1b)', ao: 'AO1', count: 6, max: 9, note: 'Appeared 2026 Q1b' },
+      { name: 'Evaluate behaviourist approach (incl. 2026 Q5)', ao: 'AO3', count: 5, max: 9, note: 'Appeared 2026 Q5' },
+      { name: 'Systematic desensitisation — describe (incl. 2026 Q7)', ao: 'AO1', count: 5, max: 9, note: 'Appeared 2026 Q7' },
+      { name: 'Operant conditioning — describe', ao: 'AO1', count: 4, max: 9 },
+      { name: 'Watson & Rayner (1920) — describe/evaluate', ao: 'AO1', count: 4, max: 9, note: 'Not in 2026' },
+      { name: 'SD effectiveness — evaluate', ao: 'AO3', count: 4, max: 9 },
+      { name: 'Token economy — describe', ao: 'AO1', count: 1, max: 9 },
+    ]
+  },
+  cog: {
+    color: '#1d4ed8', bg: '#dbeafe',
+    topics: [
+      { name: 'Assumptions — describe (incl. 2026 Q1a)', ao: 'AO1', count: 6, max: 9, note: 'Appeared 2026 Q1a (computer analogy)' },
+      { name: 'AO2 compare two approaches (incl. 2026 Q8)', ao: 'AO2', count: 6, max: 9, note: 'Appeared 2026 Q8 (cog vs bio)' },
+      { name: 'Loftus & Palmer (1974) — describe', ao: 'AO1', count: 5, max: 9, note: 'Not in 2026 — overdue' },
+      { name: 'CBT — describe', ao: 'AO1', count: 5, max: 9, note: 'Not in 2026 — overdue' },
+      { name: 'CBT — evaluate/effectiveness', ao: 'AO3', count: 3, max: 9, note: 'Not in 2026' },
+      { name: 'Loftus & Palmer — ethical issues & social implications', ao: 'AO3', count: 2, max: 9, note: 'Not in 2026' },
+    ]
+  },
+  pos: {
+    color: '#0f766e', bg: '#f0fdfa',
+    topics: [
+      { name: 'AO2 apply scenario', ao: 'AO2', count: 8, max: 9, note: 'Not in 2026 — overdue' },
+      { name: 'Assumptions — describe/outline', ao: 'AO1', count: 6, max: 9, note: 'Not in 2026 — overdue' },
+      { name: 'Myers & Diener — describe/evaluate/social impl.', ao: 'AO1', count: 6, max: 9, note: 'Appeared 2026 Q4 (social implications only)' },
+      { name: 'Mindfulness — describe', ao: 'AO1', count: 4, max: 9, note: 'Not in 2026' },
+      { name: 'Mindfulness — effectiveness', ao: 'AO3', count: 3, max: 9, note: 'Not in 2026' },
+      { name: 'Quality of Life Therapy — describe', ao: 'AO1', count: 1, max: 9 },
+    ]
+  }
+};
+
+const predictions = [
+  {
+    approach: '🧬 Raine et al. (1997) — MOST OVERDUE',
+    conf: 'HIGH', confColor: '#166534', confBg: '#dcfce7',
+    q: 'Describe findings of Raine et al. (1997) [8] OR describe findings AND conclusions [10]',
+    revise: 'PET scan, 41 NGRI vs 41 matched controls, 14 brain regions. Reduced left hemisphere (prefrontal cortex, amygdala, thalamus, hippocampus, angular gyrus). Increased right (amygdala, thalamus, hippocampus). Both findings AND conclusions needed for 6-10.',
+    marks: '8–10 AO1',
+    risk: 'Could appear as evaluate methodology. Conclusions: correlational only — brain differences may be effect not cause.'
+  },
+  {
+    approach: '🌱 Positive — AO2 Scenario',
+    conf: 'HIGH', confColor: '#166534', confBg: '#dcfce7',
+    q: 'AO2 scenario applying positive approach to a stimulus — appeared every year except 2026',
+    revise: "Seligman's authentic happiness, free will, flourishing not pathology, Myers & Diener 4 traits, Csikszentmihalyi flow. ALWAYS link to scenario character or situation explicitly.",
+    marks: '5–10 AO2',
+    risk: 'Mindfulness describe if AO2 not set for positive — MBCT, NICE recommendation, 8-week programme.'
+  },
+  {
+    approach: '🌱 Positive — Assumptions Describe',
+    conf: 'HIGH', confColor: '#166534', confBg: '#dcfce7',
+    q: 'Describe one or two positive approach assumptions — possibly 4-mark format with examples',
+    revise: 'Three Eduqas positive assumptions: free will, authenticity of goodness, focus on the good life. Key figures: Seligman, Myers & Diener, Csikszentmihalyi. NOT Maslow, NOT Rogers, NOT PERMA.',
+    marks: '4–8 AO1',
+    risk: 'Myers & Diener full findings describe [8] if assumptions not set.'
+  },
+  {
+    approach: '🧬 Biological — AO2 Scenario',
+    conf: 'HIGH', confColor: '#166534', confBg: '#dcfce7',
+    q: 'AO2 apply biological approach to a scenario — absent from 2026, appeared every other year',
+    revise: 'Apply neurotransmitter, localisation or evolutionary assumption to the specific behaviour in the stimulus. Name the character or situation. Generic answers score 1-2.',
+    marks: '5–10 AO2',
+    risk: 'Biological evaluate AO3 if AO2 not set — reductionism, determinism, Raine et al. as evidence.'
+  },
+  {
+    approach: '🧠 Loftus & Palmer (1974)',
+    conf: 'MEDIUM-HIGH', confColor: '#1d4ed8', confBg: '#dbeafe',
+    q: 'Describe findings [8] OR evaluate ethical issues AND social implications [10]',
+    revise: 'Exp 1: smashed = 40.8 mph vs contacted = 31.8 mph. Exp 2: 32% smashed recalled broken glass vs 14% hit (no glass). Ethical: deception, right to withdraw (students). Social: Cognitive Interview, Innocence Project 70% wrongful convictions, Devlin Report.',
+    marks: '8–10',
+    risk: 'CBT describe [10] if cognitive set as AO1 therapy — dysfunctional thought diary, cognitive restructuring, negative cognitive triad, homework.'
+  },
+  {
+    approach: '🌙 Psychodynamic — Dream Analysis',
+    conf: 'MEDIUM-HIGH', confColor: '#1d4ed8', confBg: '#dbeafe',
+    q: 'Describe dream analysis OR tripartite personality — Bowlby appeared in 2026, less likely to repeat immediately',
+    revise: 'Dream analysis: manifest vs latent content, defence mechanisms (displacement, condensation, symbolism), free association, making unconscious conscious. Tripartite: Id (pleasure principle), Ego (reality principle), Superego — must link to specific behaviour asked.',
+    marks: '5–10 AO1',
+    risk: 'Psychodynamic AO2 appeared in 2026 (unconscious mind apply) — could repeat in different format as AO3 evaluate therapy.'
+  },
+  {
+    approach: '📋 2027 Contemporary Debate',
+    conf: 'MEDIUM', confColor: '#92400e', confBg: '#fef3c7',
+    q: 'Ethics of Neuroscience [24] — NEVER appeared as Q9 in any paper 2017-2026',
+    revise: 'Four areas: consciousness (Crick & Koch), criminal behaviour (Raine et al.), enhancement (Kadosh tDCS), marketing (Nelson 2008, 5% incidental findings). ESE: autonomy, inequality, NHS costs. Both sides + cultural diversity for top band AO3.',
+    marks: '24 = AO1 (12) + AO3 (12)',
+    risk: 'Conditioning children (behaviourist) or Happiness/wellbeing (positive) if examiner avoids biological debate — both appeared only once (2022, 2021).'
+  },
+]
+
+function aoChip(ao) {
+  const map = { AO1:'chip-green', AO2:'chip-amber', AO3:'chip-blue' };
+  return `<span class="chip ${map[ao]||'chip-navy'}">${ao}</span>`;
+}
+
+function freqColor(count, max, baseColor) {
+  const ratio = count / max;
+  if (ratio >= 0.75) return baseColor;
+  if (ratio >= 0.5) return baseColor + 'cc';
+  if (ratio >= 0.25) return baseColor + '88';
+  if (ratio > 0) return baseColor + '44';
+  return '#e5e7eb';
+}
+
+function renderBars(containerId, key) {
+  const d = freqData[key];
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = d.topics.map(t => {
+    const pct = Math.round((t.count / t.max) * 100);
+    const fillColor = freqColor(t.count, t.max, d.color);
+    const noteHtml = t.note ? `<span style="font-size:11px;color:#6b7280;font-style:italic;margin-left:6px;">${t.note}</span>` : '';
+    return `<div class="freq-bar-wrap">
+      <div class="freq-bar-label" style="flex-wrap:wrap;gap:4px;">
+        <span class="freq-bar-topic">${t.name}${noteHtml}</span>
+        <span class="freq-bar-meta">${aoChip(t.ao)} <span class="freq-bar-count" style="color:${d.color}">${t.count}/${t.max}</span></span>
+      </div>
+      <div class="freq-bar-track">
+        <div class="freq-bar-fill" style="width:${pct}%;background:${fillColor};"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderPredictions() {
+  const el = document.getElementById('predictions-grid');
+  if (!el) return;
+  el.innerHTML = predictions.map(p => `
+    <div class="pred-card">
+      <div class="pred-header">
+        <div class="pred-title">${p.approach}</div>
+        <span class="pred-conf" style="color:${p.confColor};background:${p.confBg};">${p.conf}</span>
+      </div>
+      <div class="pred-q">📋 <strong>Predicted question:</strong> ${p.q}</div>
+      <div class="pred-q">📚 <strong>Key content:</strong> ${p.revise}</div>
+      <div class="pred-q" style="color:#6b7280;">⏱ Marks: ${p.marks}</div>
+      <div class="pred-risk">⚠️ ${p.risk}</div>
+    </div>`).join('');
+}
+
+// Render on load
+document.addEventListener('DOMContentLoaded', function() {
+  renderBars('bio-bars','bio');
+  renderBars('psy-bars','psy');
+  renderBars('beh-bars','beh');
+  renderBars('cog-bars','cog');
+  renderBars('pos-bars','pos');
+  renderPredictions();
+});
+</script>
+
+
+<!-- ═══════════════════ EXAMINER REPORTS PAGE ═══════════════════ -->
+<div id="page-examreports" class="page">
+  <h2 class="section-title">Examiner Voice — Warnings from Official Reports 2022–2025</h2>
+  <p class="section-sub">Every quote below is taken directly from the official Eduqas examiner reports. These are the things that cost students marks year after year.</p>
+
+  <div class="alert alert-red">🚨 <strong>The single biggest message across all 4 years:</strong> "Conclusions must introduce new information — not repeat what has already been written." This issue appears in the 2022, 2023, 2024 AND 2025 reports. A conclusion that summarises prior content gains zero or minimal marks.</div>
+
+  <div class="inner-tabs" style="flex-wrap:wrap;">
+    <button class="inner-tab active" onclick="showInner('er-universal',this)">⚡ Universal Warnings</button>
+    <button class="inner-tab" onclick="showInner('er-2025',this)">2025 Report</button>
+    <button class="inner-tab" onclick="showInner('er-2024',this)">2024 Report</button>
+    <button class="inner-tab" onclick="showInner('er-2023',this)">2023 Report</button>
+    <button class="inner-tab" onclick="showInner('er-2022',this)">2022 Report</button>
+  </div>
+
+  <div id="inner-er-universal" class="inner-panel active">
+    <div class="content-card">
+      <h3>⚡ Warnings that appear in every single examiner report (2022–2025)</h3>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:16px;">These are the issues that examiners flag every year without exception. Fix these and you fix your most costly errors.</p>
+    </div>
+    <div class="grid2">
+      <div class="content-card" style="border-top:4px solid #991b1b;">
+        <h3 style="color:#991b1b;">1. Conclusions — the single biggest mark-loser</h3>
+        <div class="alert alert-red" style="font-size:12px;">"Conclusions should not be repetitive, but should reflect the tone of the answer and include information not previously mentioned." — 2023 report</div>
+        <div class="alert alert-red" style="font-size:12px;">"Greater attention should be paid to conclusions because many AO3 marks are being lost due to weak, basic or no evident conclusions." — 2024 report</div>
+        <div class="alert alert-red" style="font-size:12px;">"Conclusions also remain an issue in AO3 answers — even when evaluation answers were strong, marks were often limited due to absent or repetitive conclusions." — 2025 report</div>
+        <p style="font-size:13px;color:#374151;margin-top:10px;">✅ <strong>Fix it:</strong> Every AO3 answer of 8+ marks needs a conclusion. It must say something NEW — an overall judgement, a qualification, a cultural or social implication, or a methodological observation not made earlier.</p>
+      </div>
+      <div class="content-card" style="border-top:4px solid #991b1b;">
+        <h3 style="color:#991b1b;">2. AO2 — failing to reference the scenario</h3>
+        <div class="alert alert-red" style="font-size:12px;">"Arguments were generally good when structured well, but the issue was that the arguments did not contain links to stimulus details such as 'better', 'student', 'university' etc." — 2024 report</div>
+        <div class="alert alert-red" style="font-size:12px;">"Many candidates simply wrote about [content] without taking the statement into consideration." — 2022 report</div>
+        <div class="alert alert-red" style="font-size:12px;">"As with previous sessions, AO2 answers gained the lowest amount of marks in general, with some candidates failing to link to the scenario." — 2023 report</div>
+        <p style="font-size:13px;color:#374151;margin-top:10px;">✅ <strong>Fix it:</strong> Before writing, highlight every key word in the scenario or statement. Then check after each paragraph that at least one highlighted word appears in your answer.</p>
+      </div>
+      <div class="content-card" style="border-top:4px solid #991b1b;">
+        <h3 style="color:#991b1b;">3. Contemporary debates — model answers are obvious</h3>
+        <div class="alert alert-red" style="font-size:12px;">"Centres are still using the typical textbook/learnt model essays for contemporary debates. Advice about this has been given every year since the 2017 Examiner's Report." — 2024 report</div>
+        <div class="alert alert-red" style="font-size:12px;">"Pre-learnt responses meant that candidates did not answer the question with any depth... most answers lay within the basic band for both AO1 and AO3 content." — 2023 report</div>
+        <p style="font-size:13px;color:#374151;margin-top:10px;">✅ <strong>Fix it:</strong> Practise writing debate essays from bullet-point plans, not from memorised essays. Use the ESE structure as your scaffold, not a script. The examiner can tell instantly when an essay has been pre-written.</p>
+      </div>
+      <div class="content-card" style="border-top:4px solid #991b1b;">
+        <h3 style="color:#991b1b;">4. Research evidence must be specific</h3>
+        <div class="alert alert-red" style="font-size:12px;">"There is an abundance of research detailing the effectiveness and ethical issues of cognitive therapies and yet candidates had learnt a rote list of evaluative points that had barely any depth." — 2023 report</div>
+        <div class="alert alert-red" style="font-size:12px;">"Studies used were often vague with little specific detail/evidence." — 2025 report</div>
+        <p style="font-size:13px;color:#374151;margin-top:10px;">✅ <strong>Fix it:</strong> Every evaluation point needs a named researcher + specific finding or statistic. "Research shows..." gains basic marks at best. "Soomro et al. (2008), reviewing 17 studies, found SSRIs outperformed placebos..." gains top band credit.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-er-2025" class="inner-panel">
+    <div class="content-card">
+      <h3>2025 Examiner Report — Component 1 Key Points</h3>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:12px;">Source: WJEC CBAC Ltd. 2025 examiner report (public document)</p>
+    </div>
+    <div class="grid2">
+      <div class="content-card"><h3>✅ What went well</h3>
+        <ul><li>AO2 application skills improved — many candidates clearly linked answers to stimulus material</li><li>Q7 (evaluate approach): both sides provided with few one-sided answers</li><li>QoLT well answered: Quality of Life Inventory, examples, Three Pillars clearly outlined</li><li>Q1 (behaviourist assumptions): highest scoring question, generally well answered</li></ul>
+      </div>
+      <div class="content-card"><h3>❌ Key failures</h3>
+        <ul><li>Contemporary debate "very disappointing" — many not attempted; those that were answered relied on generic Loftus &amp; Palmer with no independent research</li><li>Myers &amp; Diener described as "original researchers" — they did a <strong>literature review</strong></li><li>Mindfulness: basic if only meditation mentioned — MBSR with 3 stages required</li><li>Q3 (AO2 tripartite): focused only on ID, ignored ego and superego interaction</li><li>Handwriting deteriorated — some scripts illegible to markers</li></ul>
+      </div>
+    </div>
+    <div class="content-card">
+      <h3>🎯 2025 Q-by-Q examiner verdicts</h3>
+      <table>
+        <thead><tr><th>Q</th><th>Mean performance</th><th>Key examiner comment</th></tr></thead>
+        <tbody>
+          <tr><td>Q1 — Behaviourist assumptions</td><td>Highest scored</td><td>'Humans &amp; animals' lacked human comparison — animal examples only insufficient</td></tr>
+          <tr><td>Q2 — Myers &amp; Diener social implications</td><td>Middle band</td><td>M&amp;D = literature review not original study. Conclusions very weak.</td></tr>
+          <tr><td>Q3 — AO2 unconscious mind</td><td>Low</td><td>Links to tripartite incomplete — only ID discussed, ego/superego ignored</td></tr>
+          <tr><td>Q4a — Mindfulness/QoLT describe</td><td>Mixed</td><td>Mindfulness: MBSR+3 stages needed. QoLT: well answered overall</td></tr>
+          <tr><td>Q4b — Therapy effectiveness</td><td>Least attempted</td><td>Ethics = 0 marks. "Accessible" ≠ "effective"</td></tr>
+          <tr><td>Q5 — Compare bio &amp; psychodynamic</td><td>Reasonable+</td><td>Better AO2 than before. Must explain WHY different (not just list different therapies)</td></tr>
+          <tr><td>Q6 — Kohlberg stages</td><td>Good</td><td>Second highest mean. Must include ages AND named processes for each stage</td></tr>
+          <tr><td>Q7 — Evaluate approach</td><td>Reasonable</td><td>Both sides given but conclusions weak — limiting to reasonable band</td></tr>
+          <tr><td>Q8 — AO2 scenario</td><td>Low</td><td>Brief/superficial. Both sides needed with CLEAR links throughout</td></tr>
+          <tr><td>Q9 — EWT debate [24]</td><td>Very low</td><td>Most just described L&amp;P. Need wide range of theories. EWT appeared also 2019 &amp; 2022</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="inner-er-2024" class="inner-panel">
+    <div class="content-card">
+      <h3>2024 Examiner Report — Component 1 Key Points</h3>
+    </div>
+    <div class="grid2">
+      <div class="content-card"><h3>✅ What went well</h3>
+        <ul><li>Q2 (bio approach evaluate): most attempted and highest scoring — better structured than previous years</li><li>Q6 (CBT describe): well answered, cross-referencing with Component 3 addiction/schizophrenia credited</li><li>Overall improvement in Component 1 performance vs 2023</li></ul>
+      </div>
+      <div class="content-card"><h3>❌ Key failures</h3>
+        <ul><li>Q1 (Myers &amp; Diener findings): lowest attempted despite being AO1 — unusual. Candidates added conclusions that weren't asked for, wasting time</li><li>Q4 (Raine et al.): left/right hemisphere findings confused. NGRI vs controls not specified</li><li>Q8 (psychodynamic therapy AO2): lowest scoring Q — model essays used, question not answered</li><li>Determinism vs reductionism still confused across papers</li><li>Weak conclusions on ALL AO3 questions</li></ul>
+      </div>
+    </div>
+    <div class="content-card">
+      <h3>🎯 2024 Q-by-Q examiner verdicts</h3>
+      <table>
+        <thead><tr><th>Q</th><th>Mean performance</th><th>Key examiner comment</th></tr></thead>
+        <tbody>
+          <tr><td>Q1 — Myers &amp; Diener findings [8]</td><td>Low (least attempted)</td><td>Many added conclusions — not asked for, wastes time. Need 170,000/40%/specific data</td></tr>
+          <tr><td>Q2 — Evaluate bio approach [10]</td><td>Highest</td><td>Most popular question. Determinism/reductionism confused. Conclusions repetitive</td></tr>
+          <tr><td>Q3 — SD/aversion therapy effectiveness [8]</td><td>Reasonable</td><td>Many wrote ethics not effectiveness. Answers list-like — no depth for top band</td></tr>
+          <tr><td>Q4 — Raine et al. findings+conclusions [10]</td><td>Disappointing</td><td>Left/right confusion. Must specify NGRI vs controls. Conclusions inaccurate/brief</td></tr>
+          <tr><td>Q5 — Compare cog &amp; positive (scenario)</td><td>Better than Q4</td><td>Must link to scenario: "better", "student", "university". Strengths/weaknesses alone = 0</td></tr>
+          <tr><td>Q6 — CBT/REBT describe [10]</td><td>Reasonable+</td><td>REBT less common — mainly range issues. Link assumptions to therapy rationale</td></tr>
+          <tr><td>Q7 — Ethical+social implications L&amp;P [10]</td><td>Mixed</td><td>Both types needed for 6-10. L&amp;P students may not have felt able to withdraw (power imbalance)</td></tr>
+          <tr><td>Q8 — Why psychodynamic uses therapy [10]</td><td>Lowest</td><td>Model essay disaster — must explain WHY, not describe the therapy</td></tr>
+          <tr><td>Q9 — Mother as PCG debate [24]</td><td>Reasonable</td><td>Some excellent social impl. (girls of working mothers +4% salary). Textbook answers missed the point</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="inner-er-2023" class="inner-panel">
+    <div class="content-card">
+      <h3>2023 Examiner Report — Component 1 Key Points</h3>
+    </div>
+    <div class="grid2">
+      <div class="content-card"><h3>✅ What went well</h3>
+        <ul><li>Q1 had 99.8% attempt rate — most answered question</li><li>Q5a (Loftus &amp; Palmer methodology evaluate): many top band answers, good range</li><li>Q6 (compare two approaches): most included both similarities AND differences — improvement noted</li><li>Mini-conclusions used throughout some essays — positive development</li></ul>
+      </div>
+      <div class="content-card"><h3>❌ Key failures</h3>
+        <ul><li>Q1c (positive assumption authenticity): most wrote about "the good life" instead — wrong assumption entirely</li><li>Q3 (Bowlby findings &amp; conclusions): lowest attempt rate, inaccurate values, no conclusions</li><li>Q4 (AO2 scenario — Beth &amp; Ravi): mean 3.9/10. Key scenario words absent</li><li>Q8 (conditioning debate): textbook answers failed to address "control" or ethics specifically</li><li>Punishment confused with negative reinforcement throughout scripts</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="inner-er-2022" class="inner-panel">
+    <div class="content-card">
+      <h3>2022 Examiner Report — Component 1 Key Points</h3>
+    </div>
+    <div class="grid2">
+      <div class="content-card"><h3>✅ What went well</h3>
+        <ul><li>Majority attempted all questions — improved from previous years</li><li>Q4 (psychodynamic assumptions): most accessible Q, mean 4.8/8. Good use of Freudian terminology</li><li>Evidence of centres using new Eduqas resources — visible in answer quality</li><li>Some synoptic links between components (drug therapy, addiction, schizophrenia) — credited and encouraged</li></ul>
+      </div>
+      <div class="content-card"><h3>❌ Key failures</h3>
+        <ul><li>Q3 (AO2 behaviourist apply): lowest facility factor (27.5) — most described assumptions without applying to behaviour</li><li>Q6 (Watson &amp; Rayner AO2): ignored "today" and "negative social implications" in statement</li><li>Q7 (Raine evaluate): gender imbalance is NOT an issue — sample reflected prison population (common misconception)</li><li>Q8 (compare approaches): positive approach is NOT nature/nurture — it is FREE WILL, free from both</li><li>EWT debate mean only 10.3/24 — limited independent research</li></ul>
+      </div>
+    </div>
+    <div class="content-card">
+      <h3>🎯 Critical misconceptions flagged in 2022</h3>
+      <div class="grid2">
+        <div class="alert alert-red" style="font-size:12px;">❌ "Little Albert's mother did not consent" — <strong>WRONG.</strong> She did consent. Little Albert's mother also removed him from the study — so there WAS a right to withdraw.</div>
+        <div class="alert alert-red" style="font-size:12px;">❌ "The gender imbalance in Raine et al. is a weakness" — <strong>WRONG.</strong> The sample reflected the actual prison population — all male NGRI offenders. This is not a sampling flaw.</div>
+        <div class="alert alert-red" style="font-size:12px;">❌ "The positive approach is on the side of nature/nurture" — <strong>WRONG.</strong> The positive approach assumes free will — which means freedom from BOTH biological (nature) and environmental (nurture) determinism.</div>
+        <div class="alert alert-red" style="font-size:12px;">❌ "Determinism and reductionism are the same thing" — <strong>WRONG.</strong> Determinism = behaviour is caused by prior factors beyond our control. Reductionism = complex behaviour is explained by one level of analysis only.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
